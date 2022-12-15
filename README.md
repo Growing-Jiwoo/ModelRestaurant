@@ -10,4 +10,4 @@
 - React.js, HTML, CSS, MySQL, Django
 
 ## day1   
-DB 세팅과 Open API를 사용한 데이터 수집, React.js 기초 환경 셋팅 
+DB 세팅과 Open API를 사용한 데이터 수집, React.js 기초 환경 셋팅, REST API 생성
