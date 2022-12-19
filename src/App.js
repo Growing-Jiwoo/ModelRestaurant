@@ -1,14 +1,28 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState, useEffect } from "react";
+import styled, { ThemeProvider } from "styled-components";
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import { Row, Col, Navbar, Container, Nav, Card, Button } from 'react-bootstrap';
+import GroupCard from "./Components/Main_Card";
+import ControlledCarousel from "./Components/Main_Carousel.js";
+
+import display from './Style/display'
+
+import theme from "./Style/theme.js";
+
 const MainBanner = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+${({ theme }) => theme.common.flexCenterColumn};
+${({ theme }) => theme.animation.slow_fadein_fadeout};
+
+  margin-top: 23vh;
   min-height: 70vh;
-  cursor: pointer;
+
 `;
+
+const MainDisplay = styled.div`
+${({ theme }) => theme.animation.fast_fadein_fadeout};
+
+`;
+
 
 function App() {
 
@@ -17,39 +31,60 @@ function App() {
 
   return (
     <div>
-      {
-        banner == true ? <MainBannerImg /> : <NavBar />
-      }
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/home" element={<NavBar />}></Route>
+          <Route path="/" element={<MainBannerImg />}></Route>
+        </Routes>
 
+        {
+          useEffect(() => {
+            setTimeout(() => {
+              setBanner(false)
+              navigate('/home')
+            }, 3000)
+          }, [])
+        }
+
+      </ThemeProvider>
     </div>
   );
 
   function MainBannerImg() {
     return (
-      <div className="main_image">
-        <MainBanner><img className="main_banner_image" alt="bannerLogo" src={process.env.PUBLIC_URL + '/img/bannerLogo.PNG'} onClick={() => { setBanner(false) }} /></MainBanner>
+      <div>
+        <MainBanner><img className="main_banner_image" alt="bannerLogo" src={process.env.PUBLIC_URL + '/img/bannerLogo.PNG'} /></MainBanner>
+      </div>
+    )
+  }
+
+  function NavBar() {
+    return (
+      <div>
+        {
+          useEffect(() => {
+            setBanner(false)
+          }, [])
+        }
+        <MainDisplay>
+          <Navbar bg="light" variant="light">
+            <Container>
+              <Navbar.Brand href="/"><img className="main_banner_logo" alt="homelogo" style={{ width: '200px' }} src={process.env.PUBLIC_URL + '/img/mainLogo.PNG'} /></Navbar.Brand>
+              <Nav className="me-auto">
+                <Nav.Link onClick={() => { navigate('/home') }}>Home</Nav.Link>
+              </Nav>
+            </Container>
+          </Navbar>
+
+          <ControlledCarousel></ControlledCarousel>
+          <GroupCard></GroupCard>
+
+
+        </MainDisplay>
       </div>
     )
   }
 
 }
-
-function NavBar() {
-  return (
-    <Navbar bg="light" variant="light">
-      <Container>
-        <Navbar.Brand href="#">Navbar</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link href="#">Home</Nav.Link>
-        </Nav>
-      </Container>
-    </Navbar>
-  )
-}
-
-
-
-
-
 
 export default App;
