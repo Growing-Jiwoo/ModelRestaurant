@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import Carousel from 'react-bootstrap/Carousel';
 
+const BannerLogo = styled.div`
+img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.random_banner{
+    cursor: pointer;
+}
+`;
+
 function ControlledCarousel() {
 
-    const BannerLogo = styled.div`
-    img{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 60vw;
-        height: 400px;
-        margin: 0 auto;
-    }
-
-    .random_banner{
-        cursor: pointer;
-    }
-`;
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex, e) => {

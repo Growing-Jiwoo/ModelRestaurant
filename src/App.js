@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import { Row, Col, Navbar, Container, Nav, Card, Button } from 'react-bootstrap';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
+import {  Navbar, Container, Nav } from 'react-bootstrap';
 import GroupCard from "./Components/Main_Card";
 import ControlledCarousel from "./Components/Main_Carousel.js";
 
@@ -20,8 +20,8 @@ ${({ theme }) => theme.animation.slow_fadein_fadeout};
 
 const MainDisplay = styled.div`
 ${({ theme }) => theme.animation.fast_fadein_fadeout};
-
 `;
+
 
 
 function App() {
@@ -67,6 +67,7 @@ function App() {
           }, [])
         }
         <MainDisplay>
+
           <Navbar bg="light" variant="light">
             <Container>
               <Navbar.Brand href="/"><img className="main_banner_logo" alt="homelogo" style={{ width: '200px' }} src={process.env.PUBLIC_URL + '/img/mainLogo.PNG'} /></Navbar.Brand>
@@ -77,8 +78,8 @@ function App() {
           </Navbar>
 
           <ControlledCarousel></ControlledCarousel>
-          <GroupCard></GroupCard>
 
+          <GroupCard></GroupCard>
 
         </MainDisplay>
       </div>
