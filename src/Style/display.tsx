@@ -3,7 +3,7 @@ const size = {
   tablet: '900px',
   laptop: '1200px',
   desktop: '1800px',
-}
+};
 
 const display = {
   mainColor: '#0a4297',
@@ -11,6 +11,6 @@ const display = {
   tablet: `(max-width: ${size.tablet})`,
   laptop: `(max-width: ${size.laptop})`,
   desktop: `(min-width: ${size.desktop})`,
-}
+};
 
-export default display
+export default display;

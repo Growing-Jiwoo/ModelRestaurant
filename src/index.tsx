@@ -4,19 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components'
-import GlobalStyle from './Style/global'
-import display from './Style/display'
+import GlobalStyle from './Style/global';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 root.render(
   // <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
     {/* <ThemeProvider display={display}> */}
-      <App />
-      <GlobalStyle />
+    <App />
+    <GlobalStyle />
     {/* </ThemeProvider> */}
-    </BrowserRouter> 
+  </BrowserRouter>
   // </React.StrictMode>
 );
 
