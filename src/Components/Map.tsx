@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-function Map() {
+function Map(userlat: any) {
   const mapElement = useRef(null);
-
+  console.log(userlat);
   useEffect(() => {
     const { naver } = window;
     if (!mapElement.current || !naver) return;

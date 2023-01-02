@@ -22,8 +22,7 @@ const CardStyle = styled.div`
     background-color: rgb(0, 0, 0);
   }
 
-  .container::before {
-    content: '주변음식점 목록';
+  .container #title {
     padding-top: 10px;
     width: 100%;
     font-size: 23px;
@@ -58,10 +57,11 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard() {
+function GroupCard(userlocation: any) {
   return (
     <CardStyle theme={theme}>
       <div className="container">
+        <div id="title">{userlocation.userlocation} 주변 음식점 목록</div>
         <div className="card">
           <div className="card_title">title</div>
 
