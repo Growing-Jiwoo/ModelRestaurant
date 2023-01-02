@@ -4,10 +4,6 @@
 
 - 1명
 
-[기간]
-
-- 2022-12-14 ~
-
 [사용 기술]
 
 - React.js, TypeScript, HTML, CSS, MySQL, Django
