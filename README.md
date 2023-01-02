@@ -4,9 +4,9 @@
 
 - 1명
 
-[사용 기술]
+[기간]
 
-- React.js, TypeScript, HTML, CSS, MySQL, Django
+React.js, TypeScript, HTML, CSS, MySQL, Django
 
 ## day1
 
