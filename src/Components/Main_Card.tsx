@@ -61,7 +61,8 @@ function GroupCard(userlocation: any) {
   return (
     <CardStyle theme={theme}>
       <div className="container">
-        <div id="title">{userlocation.userlocation} 주변 음식점 목록</div>
+        {/* <div id="title">{userlocation.userlocation} 주변 음식점 목록</div> */}
+        <div id="title">주변 음식점 목록</div>
         <div className="card">
           <div className="card_title">title</div>
 

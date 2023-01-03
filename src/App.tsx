@@ -26,52 +26,48 @@ function App() {
   const navigate = useNavigate();
   const [banner, setBanner] = useState(true);
   const location = useGeoLocation();
-  const [userlocation, setUserLocation] = useState<string | any>('');
 
-  const userlat: [] | any = JSON.stringify(location.coordinates?.lng);
+  // const userlat: [] | any = JSON.stringify(location.coordinates?.lng);
 
-  async function mapAPI(latitude: unknown, longitude: unknown) {
-    try {
-      const response = await axios
-        .get(
-          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${longitude}`,
-          {
-            headers: {
-              Authorization: 'KakaoAK 488de47883695ba1806e3203af90422a',
-            },
-          }
-        )
-        .then((response: { data: { documents: unknown[] } }) => {
-          const location: any = response.data.documents[0];
-          const si = location.address.region_1depth_name;
-          const gu = location.address.region_2depth_name;
-          const dong = location.address.region_3depth_name;
-          console.log(location);
-          setUserLocation(`${si} ${gu}`);
-        });
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  }
+  // async function mapAPI(latitude: unknown, longitude: unknown) {
+  //   try {
+  //     const response = await axios
+  //       .get(
+  //         `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${longitude}`,
+  //         {
+  //           headers: {
+  //             Authorization: 'KakaoAK 488de47883695ba1806e3203af90422a',
+  //           },
+  //         }
+  //       )
+  //       .then((response: { data: { documents: unknown[] } }) => {
+  //         const location: any = response.data.documents[0];
+  //         const si = location.address.region_1depth_name;
+  //         const gu = location.address.region_2depth_name;
+  //         const dong = location.address.region_3depth_name;
+  //         console.log(location);
+  //         setUserLocation(`${si} ${gu}`);
+  //       });
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //   }
+  // }
 
   {
-    location.loaded
-      ? console.log(
-          mapAPI(
-            JSON.stringify(location.coordinates?.lng),
-            JSON.stringify(location.coordinates?.lat)
-          )
-        )
-      : 'Location data not available yet.';
+    // console.log(location);
+    // location.loaded
+    //   ? console.log(
+    //       // mapAPI(
+    //       JSON.stringify(location.coordinates?.lng),
+    //       JSON.stringify(location.coordinates?.lat)
+    //       // )
+    //     )
+    //   : 'Location data not available yet.';
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      setBanner(false);
-      navigate('/home');
-    }, 2000);
+    setBanner(false);
   }, []);
-  // 수정필요 , 어떤 페이지에서건 동작을 함
 
   return (
     <div>
@@ -80,7 +76,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainBannerImg />}></Route>
           <Route path="/home" element={<MainComponent />}></Route>
-          <Route path="/map" element={<Map {...userlat} />}></Route>
+          <Route path="/map" element={<Map />}></Route>
         </Routes>
       </ThemeProvider>
     </div>
@@ -121,9 +117,12 @@ function App() {
 
   function MainBannerImg() {
     useEffect(() => {
+      setTimeout(() => {
+        setBanner(false);
+        navigate('/home');
+      }, 2000);
       setBanner(true);
     }, []);
-
     return (
       <div>
         <MainBanner>
@@ -142,7 +141,8 @@ function App() {
       <div>
         <MainDisplay>
           <ControlledCarousel></ControlledCarousel>
-          <GroupCard userlocation={userlocation}></GroupCard>
+          {/* <GroupCard userlocation={userlocation}></GroupCard> */}
+          <GroupCard></GroupCard>
         </MainDisplay>
       </div>
     );
