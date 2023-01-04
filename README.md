@@ -22,4 +22,4 @@ typescript 적용, 지도 생성
 
 ## day4
 
-geolocation 구현
+geolocation, reversegeocoding 구현 및 커스텀 훅 생성

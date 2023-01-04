@@ -9,7 +9,6 @@ import useGeoLocation from './hooks/useGeolocation';
 import ControlledCarousel from './Components/Main_Carousel';
 
 import theme from './Style/theme';
-import axios from 'axios';
 
 const MainBanner = styled.div`
   ${({ theme }) => theme.common.flexCenterColumn};
@@ -27,34 +26,8 @@ function App() {
   const [banner, setBanner] = useState(true);
   const location = useGeoLocation();
 
-  // const userlat: [] | any = JSON.stringify(location.coordinates?.lng);
-
-  // async function mapAPI(latitude: unknown, longitude: unknown) {
-  //   try {
-  //     const response = await axios
-  //       .get(
-  //         `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${longitude}`,
-  //         {
-  //           headers: {
-  //             Authorization: 'KakaoAK 488de47883695ba1806e3203af90422a',
-  //           },
-  //         }
-  //       )
-  //       .then((response: { data: { documents: unknown[] } }) => {
-  //         const location: any = response.data.documents[0];
-  //         const si = location.address.region_1depth_name;
-  //         const gu = location.address.region_2depth_name;
-  //         const dong = location.address.region_3depth_name;
-  //         console.log(location);
-  //         setUserLocation(`${si} ${gu}`);
-  //       });
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //   }
-  // }
-
   {
-    // console.log(location);
+    console.log(location);
     // location.loaded
     //   ? console.log(
     //       // mapAPI(
