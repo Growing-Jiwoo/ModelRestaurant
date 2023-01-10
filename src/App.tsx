@@ -98,7 +98,7 @@ function App() {
                 navigate('/map');
               }}
             >
-              Map
+              map
             </Nav.Link>
           </Nav>
         </Container>
