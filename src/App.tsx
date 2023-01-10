@@ -5,7 +5,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import GroupCard from './Components/Main_Card';
 import Map from './Components/Map';
 import useGeoLocation from './hooks/useGeolocation';
-
+import axios from 'axios';
 import ControlledCarousel from './Components/Main_Carousel';
 
 import theme from './Style/theme';
@@ -21,27 +21,45 @@ const MainDisplay = styled.div`
   ${({ theme }) => theme.animation.fast_fadein_fadeout};
 `;
 
+interface RestaurantType {
+  addrjibun: string;
+  addrroad: string;
+  bsnscond: string;
+  bsnsnm: string;
+  gugun: string;
+  id: number;
+  lat: string | number;
+  lon: string | number;
+  menu: string;
+  tel: string;
+}
+
 function App() {
   const navigate = useNavigate();
   const [banner, setBanner] = useState(true);
   const location = useGeoLocation();
-
-  {
-    console.log(location);
-    // location.loaded
-    //   ? console.log(
-    //       // mapAPI(
-    //       JSON.stringify(location.coordinates?.lng),
-    //       JSON.stringify(location.coordinates?.lat)
-    //       // )
-    //     )
-    //   : 'Location data not available yet.';
-  }
-
   useEffect(() => {
     setBanner(false);
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:8000/Restaurant/')
+      .then(function (response) {
+        console.log(response);
+        response.data.map((element: RestaurantType) => {
+          if (
+            location.coordinates?.address ===
+            '부산 ' + element.gugun.split(' ')[1]
+          ) {
+            console.log(element.bsnsnm);
+          }
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [location]);
   return (
     <div>
       {banner === true ? null : <NavBar />}
@@ -90,11 +108,13 @@ function App() {
 
   function MainBannerImg() {
     useEffect(() => {
-      setTimeout(() => {
-        setBanner(false);
-        navigate('/home');
-      }, 2000);
-      setBanner(true);
+      return () => {
+        setTimeout(() => {
+          setBanner(false);
+          navigate('/home');
+        }, 2000);
+        setBanner(true);
+      };
     }, []);
     return (
       <div>
