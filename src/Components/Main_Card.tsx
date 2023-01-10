@@ -58,6 +58,7 @@ const CardStyle = styled.div`
 `;
 
 function GroupCard(userlocation: any) {
+  console.log(userlocation);
   return (
     <CardStyle theme={theme}>
       <div className="container">

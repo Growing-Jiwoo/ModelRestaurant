@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ interface RestaurantType {
   addrjibun: string;
   addrroad: string;
   bsnscond: string;
-  bsnsnm: string;
+  bsnsnm: never;
   gugun: string;
   id: number;
   lat: string | number;
@@ -38,28 +39,49 @@ function App() {
   const navigate = useNavigate();
   const [banner, setBanner] = useState(true);
   const location = useGeoLocation();
-  useEffect(() => {
-    setBanner(false);
-  }, []);
+  const [restaurantList, SetRestaurantList] = useState([]);
+  const nearbyRestaurant: never[] = [];
+  const getRestaurantInfo = async () => {
+    const restaurantInfo: any = await axios.get(
+      'http://127.0.0.1:8000/Restaurant/'
+    );
+    SetRestaurantList(restaurantInfo);
+  };
 
   useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/Restaurant/')
-      .then(function (response) {
-        console.log(response);
-        response.data.map((element: RestaurantType) => {
-          if (
-            location.coordinates?.address ===
-            '부산 ' + element.gugun.split(' ')[1]
-          ) {
-            console.log(element.bsnsnm);
-          }
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [location]);
+    getRestaurantInfo();
+    // console.log(location)
+
+
+    // ----------- uselocation 커스텀 훅 가져오는걸 성공한 이후에 데이터를 처리하는 로직 생성 구현 ------------------
+
+
+    // if(location.loaded != true){
+    //   console.log(location);
+    // }
+    // axios
+      // .get('http://127.0.0.1:8000/Restaurant/')
+      // .then(function (response): any {
+      //   console.log('hi');
+        // if(location){
+        //   console.log(location);
+        // }
+        // console.log(response);
+        // response.data.map((element: RestaurantType) => {
+        //   if (
+        //     location.coordinates?.address ===
+        //     '부산 ' + element.gugun.split(' ')[1]
+        //   ) {
+        //     nearbyRestaurant.push(element.bsnsnm);
+        //   }
+        // });
+        // SetRestaurantList(nearbyRestaurant);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
+  }, []);
+  
   return (
     <div>
       {banner === true ? null : <NavBar />}
@@ -130,12 +152,15 @@ function App() {
   }
 
   function MainComponent() {
+    useEffect(() => {
+      setBanner(false);
+    }, []);
     return (
       <div>
         <MainDisplay>
           <ControlledCarousel></ControlledCarousel>
-          {/* <GroupCard userlocation={userlocation}></GroupCard> */}
-          <GroupCard></GroupCard>
+          <GroupCard userlocation={restaurantList}></GroupCard>
+          {/* <GroupCard></GroupCard> */}
         </MainDisplay>
       </div>
     );
