@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
@@ -38,49 +38,21 @@ interface RestaurantType {
 function App() {
   const navigate = useNavigate();
   const [banner, setBanner] = useState(true);
+  const restaurantList: any = useRef([]);
   const location = useGeoLocation();
-  const [restaurantList, SetRestaurantList] = useState([]);
-  const nearbyRestaurant: never[] = [];
-  const getRestaurantInfo = async () => {
-    const restaurantInfo: any = await axios.get(
-      'http://127.0.0.1:8000/Restaurant/'
-    );
-    SetRestaurantList(restaurantInfo);
-  };
 
-  useEffect(() => {
+  useLayoutEffect (() => {
+    const getRestaurantInfo = async () => {
+      const restaurantInfo: any = await axios.get(
+        'http://127.0.0.1:8000/Restaurant/'
+      )
+      console.log(restaurantInfo.data)
+      // return restaurantList.current.push(restaurantInfo.data)
+    };
+
     getRestaurantInfo();
-    // console.log(location)
-
-
-    // ----------- uselocation 커스텀 훅 가져오는걸 성공한 이후에 데이터를 처리하는 로직 생성 구현 ------------------
-
-
-    // if(location.loaded != true){
-    //   console.log(location);
-    // }
-    // axios
-      // .get('http://127.0.0.1:8000/Restaurant/')
-      // .then(function (response): any {
-      //   console.log('hi');
-        // if(location){
-        //   console.log(location);
-        // }
-        // console.log(response);
-        // response.data.map((element: RestaurantType) => {
-        //   if (
-        //     location.coordinates?.address ===
-        //     '부산 ' + element.gugun.split(' ')[1]
-        //   ) {
-        //     nearbyRestaurant.push(element.bsnsnm);
-        //   }
-        // });
-        // SetRestaurantList(nearbyRestaurant);
-      // })
-      // .catch(function (error) {
-      //   console.log(error);
-      // });
-  }, []);
+    console.log('ok');
+  }, [restaurantList]);
   
   return (
     <div>
@@ -88,7 +60,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<MainBannerImg />}></Route>
-          <Route path="/home" element={<MainComponent />}></Route>
+          <Route path="/home" element={<MainComponent props={restaurantList}/>}></Route>
           <Route path="/map" element={<Map />}></Route>
         </Routes>
       </ThemeProvider>
@@ -151,7 +123,8 @@ function App() {
     );
   }
 
-  function MainComponent() {
+  function MainComponent(props: any) {
+    // console.log(props.props);
     useEffect(() => {
       setBanner(false);
     }, []);
@@ -159,7 +132,7 @@ function App() {
       <div>
         <MainDisplay>
           <ControlledCarousel></ControlledCarousel>
-          <GroupCard userlocation={restaurantList}></GroupCard>
+          <GroupCard restaurantList={props.props} ></GroupCard>
           {/* <GroupCard></GroupCard> */}
         </MainDisplay>
       </div>

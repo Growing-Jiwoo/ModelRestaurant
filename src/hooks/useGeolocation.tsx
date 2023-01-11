@@ -25,6 +25,7 @@ async function mapAPI(latitude: unknown, longitude: unknown) {
         )
         .then(async (response: { data: { documents: unknown[] } }) => {
           const location: any = response.data.documents[0];
+          console.log(location);
           const si = location.address.region_1depth_name;
           const gu = location.address.region_2depth_name;
           const userAddress = `${si} ${gu}`;
@@ -39,13 +40,13 @@ async function mapAPI(latitude: unknown, longitude: unknown) {
 const useGeolocation = () => {
   const [location, setLocation] = useState<locationType>({
     loaded: false,
-    coordinates: { lat: 0, lng: 0, address: '' },
+    coordinates: { lat: 0, lng: 0, address: '부산 수영구' },
   });
   // 성공에 대한 로직
   const onSuccess = async (location: {
     coords: { latitude: number; longitude: number };
   }) => {
-    const address = await mapAPI(129.1231357, 35.1678779);
+    const address = await mapAPI(129.1284061294, 35.1740102455);
     setLocation({
       loaded: true,
       coordinates: {

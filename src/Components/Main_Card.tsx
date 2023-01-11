@@ -1,5 +1,7 @@
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
+import useNearRestaurangList from '../hooks/useNearRestaurangList';
 
 const CardStyle = styled.div`
   * {
@@ -57,11 +59,20 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard(userlocation: any) {
-  console.log(userlocation);
+function GroupCard(props: any) {
+  const nearRestaurangList = useNearRestaurangList();
+  useEffect(() => {
+    console.log(nearRestaurangList);
+  }, []);
   return (
     <CardStyle theme={theme}>
       <div className="container">
+        {/* {props.restaurantList.data.map((value: string) => {
+          if (restaurantData != undefined) {
+            // console.log('hi');
+            // console.log(value);
+          }
+        })} */}
         {/* <div id="title">{userlocation.userlocation} 주변 음식점 목록</div> */}
         <div id="title">주변 음식점 목록</div>
         <div className="card">
@@ -72,7 +83,7 @@ function GroupCard(userlocation: any) {
           <div className="card_footer">footer</div>
         </div>
 
-        <div className="card">
+        {/* <div className="card">
           <div className="card_title">title</div>
 
           <div className="card_contents">contents</div>
@@ -102,7 +113,7 @@ function GroupCard(userlocation: any) {
           <div className="card_contents">contents</div>
 
           <div className="card_footer">footer</div>
-        </div>
+        </div> */}
       </div>
     </CardStyle>
   );
