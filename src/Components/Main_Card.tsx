@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
 import useNearRestaurangList from '../hooks/useNearRestaurangList';
@@ -59,21 +59,18 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard(props: any) {
-  const nearRestaurangList = useNearRestaurangList();
+function GroupCard() {
+  const getNearRestaurangList: any | undefined = useNearRestaurangList();
+  const [nearList, SetNearList] = useState();
+
   useEffect(() => {
-    console.log(nearRestaurangList);
-  }, []);
+    console.log(getNearRestaurangList);
+  }, [getNearRestaurangList]);
+  // eslint-disable-next-line prettier/prettier
+
   return (
     <CardStyle theme={theme}>
       <div className="container">
-        {/* {props.restaurantList.data.map((value: string) => {
-          if (restaurantData != undefined) {
-            // console.log('hi');
-            // console.log(value);
-          }
-        })} */}
-        {/* <div id="title">{userlocation.userlocation} 주변 음식점 목록</div> */}
         <div id="title">주변 음식점 목록</div>
         <div className="card">
           <div className="card_title">title</div>

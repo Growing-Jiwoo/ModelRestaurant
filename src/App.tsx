@@ -6,6 +6,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import GroupCard from './Components/Main_Card';
 import Map from './Components/Map';
 import useGeoLocation from './hooks/useGeolocation';
+import useNearRestaurangList from './hooks/useNearRestaurangList';
 import axios from 'axios';
 import ControlledCarousel from './Components/Main_Carousel';
 
@@ -41,18 +42,18 @@ function App() {
   const restaurantList: any = useRef([]);
   const location = useGeoLocation();
 
-  useLayoutEffect (() => {
-    const getRestaurantInfo = async () => {
-      const restaurantInfo: any = await axios.get(
-        'http://127.0.0.1:8000/Restaurant/'
-      )
-      console.log(restaurantInfo.data)
-      // return restaurantList.current.push(restaurantInfo.data)
-    };
+  // useLayoutEffect (() => {
+  //   const getRestaurantInfo = async () => {
+  //     const restaurantInfo: any = await axios.get(
+  //       'http://127.0.0.1:8000/Restaurant/'
+  //     )
+  //     console.log(restaurantInfo.data)
+  //     // return restaurantList.current.push(restaurantInfo.data)
+  //   };
 
-    getRestaurantInfo();
-    console.log('ok');
-  }, [restaurantList]);
+  //   getRestaurantInfo();
+  //   console.log('ok');
+  // }, [restaurantList]);
   
   return (
     <div>
@@ -132,8 +133,8 @@ function App() {
       <div>
         <MainDisplay>
           <ControlledCarousel></ControlledCarousel>
-          <GroupCard restaurantList={props.props} ></GroupCard>
-          {/* <GroupCard></GroupCard> */}
+          {/* <GroupCard restaurantList={props.props} ></GroupCard> */}
+          <GroupCard></GroupCard>
         </MainDisplay>
       </div>
     );
