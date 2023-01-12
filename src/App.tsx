@@ -124,7 +124,7 @@ function App() {
     );
   }
 
-  function MainComponent(props: any) {
+  function MainComponent(props: any): React.ReactElement {
     // console.log(props.props);
     useEffect(() => {
       setBanner(false);

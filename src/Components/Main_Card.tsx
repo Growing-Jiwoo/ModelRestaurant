@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
 import useNearRestaurangList from '../hooks/useNearRestaurangList';
@@ -59,14 +59,13 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard() {
+function GroupCard(): JSX.Element {
   const getNearRestaurangList: any | undefined = useNearRestaurangList();
   const [nearList, SetNearList] = useState();
 
   useEffect(() => {
     console.log(getNearRestaurangList);
   }, [getNearRestaurangList]);
-  // eslint-disable-next-line prettier/prettier
 
   return (
     <CardStyle theme={theme}>
