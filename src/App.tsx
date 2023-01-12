@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect, ReactNode } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
@@ -124,7 +124,7 @@ function App() {
     );
   }
 
-  function MainComponent(props: any): React.ReactElement {
+  function MainComponent(props: any): JSX.Element | JSX.Element {
     // console.log(props.props);
     useEffect(() => {
       setBanner(false);

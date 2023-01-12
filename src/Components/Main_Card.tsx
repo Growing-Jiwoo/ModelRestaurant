@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
 import useNearRestaurangList from '../hooks/useNearRestaurangList';
@@ -59,14 +59,18 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard(): JSX.Element {
+function GroupCard(): ReactNode {
   const getNearRestaurangList: any | undefined = useNearRestaurangList();
   const [nearList, SetNearList] = useState();
 
+  function test() {
+    getNearRestaurangList ? console.log('정보 있음') : console.log('정보 없음');
+  }
+
   useEffect(() => {
     console.log(getNearRestaurangList);
+    test();
   }, [getNearRestaurangList]);
-
   return (
     <CardStyle theme={theme}>
       <div className="container">
@@ -78,38 +82,6 @@ function GroupCard(): JSX.Element {
 
           <div className="card_footer">footer</div>
         </div>
-
-        {/* <div className="card">
-          <div className="card_title">title</div>
-
-          <div className="card_contents">contents</div>
-
-          <div className="card_footer">footer</div>
-        </div>
-
-        <div className="card">
-          <div className="card_title">title</div>
-
-          <div className="card_contents">contents</div>
-
-          <div className="card_footer">footer</div>
-        </div>
-
-        <div className="card">
-          <div className="card_title">title</div>
-
-          <div className="card_contents">contents</div>
-
-          <div className="card_footer">footer</div>
-        </div>
-
-        <div className="card">
-          <div className="card_title">title</div>
-
-          <div className="card_contents">contents</div>
-
-          <div className="card_footer">footer</div>
-        </div> */}
       </div>
     </CardStyle>
   );
