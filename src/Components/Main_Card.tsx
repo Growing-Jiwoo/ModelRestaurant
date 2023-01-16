@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
 import useNearRestaurangList from '../hooks/useNearRestaurangList';
+import useGeoLocation from '../hooks/useGeolocation';
 
 const CardStyle = styled.div`
   * {
@@ -60,33 +61,39 @@ const CardStyle = styled.div`
 `;
 
 function GroupCard(): JSX.Element {
-  const getNearRestaurangList = useNearRestaurangList();
-  const [nearList, SetNearList] = useState();
+  const getNearRestaurangList: any = useNearRestaurangList();
+  const location = useGeoLocation();
 
-  function CardComponent() {
-    return (
-      <CardStyle theme={theme}>
-        <div className="container">
-          <div id="title">주변 음식점 목록</div>
-          <div className="card">
-            <div className="card_title">title</div>
-            <div className="card_contents">contents</div>
-            <div className="card_footer">footer</div>
+  function CardComponent(): JSX.Element {
+    {
+      return (
+        <CardStyle theme={theme}>
+          <div className="container">
+            <div id="title">주변 음식점 목록</div>
+            <div className="card">
+              <div className="card_title">title</div>
+              <div className="card_contents">contents</div>
+              <div className="card_footer">footer</div>
+            </div>
           </div>
-        </div>
-      </CardStyle>
+        </CardStyle>
+      );
+    }
+  }
+  //props와 map 활용해서 카드 만들기
+  function ConsoleLog(): ReactNode | undefined {
+    return getNearRestaurangList ? (
+      <CardComponent></CardComponent>
+    ) : (
+      <div>로딩중</div>
     );
   }
 
-  function ConsoleLog() {
-    getNearRestaurangList ? console.log('정보 있음') : console.log('정보 없음');
-  }
-
   useEffect(() => {
-    console.log(getNearRestaurangList);
+    ConsoleLog();
   }, [getNearRestaurangList]);
 
-  return <CardComponent></CardComponent>;
+  return <div>{ConsoleLog()}</div>;
 }
 
 export default GroupCard;

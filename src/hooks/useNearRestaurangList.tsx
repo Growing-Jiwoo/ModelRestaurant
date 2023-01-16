@@ -2,22 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useAsync } from 'react-async';
 import axios from 'axios';
 
-type NearRestaurangListType = {
-  addrjibun: string;
-  addrroad: string;
-  bsnscond: string;
-  bsnsnm: never;
-  gugun: string;
-  id: number;
-  lat: string | number;
-  lon: string | number;
-  menu: string;
-  tel: string;
-};
+type Information = { name: string; description: string };
 
 function useNearRestaurangList() {
   const [nearRestaurangList, SetNearRestaurangList] =
-    useState<NearRestaurangListType>();
+    useState<Information | null>();
   useEffect(() => {
     (async () => {
       const posts = await axios.get('http://127.0.0.1:8000/Restaurant/');
