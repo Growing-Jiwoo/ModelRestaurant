@@ -59,8 +59,8 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard(): any {
-  const getNearRestaurangList: any | undefined = useNearRestaurangList();
+function GroupCard(): JSX.Element {
+  const getNearRestaurangList = useNearRestaurangList();
   const [nearList, SetNearList] = useState();
 
   function CardComponent() {
@@ -79,18 +79,14 @@ function GroupCard(): any {
   }
 
   function ConsoleLog() {
-    getNearRestaurangList ? (
-      <CardComponent></CardComponent>
-    ) : (
-      console.log('정보 없음')
-    );
+    getNearRestaurangList ? console.log('정보 있음') : console.log('정보 없음');
   }
 
   useEffect(() => {
     console.log(getNearRestaurangList);
   }, [getNearRestaurangList]);
 
-  return { ConsoleLog };
+  return <CardComponent></CardComponent>;
 }
 
 export default GroupCard;
