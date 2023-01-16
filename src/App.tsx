@@ -61,7 +61,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<MainBannerImg />}></Route>
-          <Route path="/home" element={<MainComponent props={restaurantList}/>}></Route>
+          <Route path="/home" element={<MainComponent/>}></Route>
           <Route path="/map" element={<Map />}></Route>
         </Routes>
       </ThemeProvider>
@@ -124,7 +124,7 @@ function App() {
     );
   }
 
-  function MainComponent(props: any): JSX.Element | JSX.Element {
+  function MainComponent(props: any): JSX.Element{
     // console.log(props.props);
     useEffect(() => {
       setBanner(false);

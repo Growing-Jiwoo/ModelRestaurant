@@ -59,32 +59,38 @@ const CardStyle = styled.div`
   }
 `;
 
-function GroupCard(): ReactNode {
+function GroupCard(): any {
   const getNearRestaurangList: any | undefined = useNearRestaurangList();
   const [nearList, SetNearList] = useState();
 
-  function test() {
-    getNearRestaurangList ? console.log('정보 있음') : console.log('정보 없음');
+  function CardComponent() {
+    return (
+      <CardStyle theme={theme}>
+        <div className="container">
+          <div id="title">주변 음식점 목록</div>
+          <div className="card">
+            <div className="card_title">title</div>
+            <div className="card_contents">contents</div>
+            <div className="card_footer">footer</div>
+          </div>
+        </div>
+      </CardStyle>
+    );
+  }
+
+  function ConsoleLog() {
+    getNearRestaurangList ? (
+      <CardComponent></CardComponent>
+    ) : (
+      console.log('정보 없음')
+    );
   }
 
   useEffect(() => {
     console.log(getNearRestaurangList);
-    test();
   }, [getNearRestaurangList]);
-  return (
-    <CardStyle theme={theme}>
-      <div className="container">
-        <div id="title">주변 음식점 목록</div>
-        <div className="card">
-          <div className="card_title">title</div>
 
-          <div className="card_contents">contents</div>
-
-          <div className="card_footer">footer</div>
-        </div>
-      </div>
-    </CardStyle>
-  );
+  return { ConsoleLog };
 }
 
 export default GroupCard;
