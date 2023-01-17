@@ -23,19 +23,6 @@ const MainDisplay = styled.div`
   ${({ theme }) => theme.animation.fast_fadein_fadeout};
 `;
 
-interface RestaurantType {
-  addrjibun: string;
-  addrroad: string;
-  bsnscond: string;
-  bsnsnm: never;
-  gugun: string;
-  id: number;
-  lat: string | number;
-  lon: string | number;
-  menu: string;
-  tel: string;
-}
-
 function App() {
   const navigate = useNavigate();
   const [banner, setBanner] = useState(true);

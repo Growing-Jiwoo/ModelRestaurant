@@ -60,48 +60,53 @@ const CardStyle = styled.div`
   }
 `;
 
+interface RestaurantType {
+  addrjibun: string;
+  addrroad: string;
+  bsnscond: string;
+  bsnsnm: never;
+  gugun: string;
+  id: number;
+  lat: string | number;
+  lon: string | number;
+  menu: string;
+  tel: string;
+}
+
 function GroupCard(): JSX.Element {
   const getNearRestaurangList: any = useNearRestaurangList();
   const location = useGeoLocation();
 
-  function CardComponent(props: any): JSX.Element {
-    {
-      return (
-        <CardStyle theme={theme}>
-          <div className="container">
-            <div id="title">주변 음식점 목록 {props}</div>
-            <div className="card">
-              <div className="card_title">title</div>
-              <div className="card_contents">contents</div>
-              <div className="card_footer">footer</div>
-            </div>
-          </div>
-        </CardStyle>
-      );
-    }
-  }
-  //props와 map 활용해서 카드 만들기
-  function ConsoleLog(): ReactNode | undefined | any {
+  function CardComponent(): JSX.Element | undefined | any {
     const userLocationName = location.coordinates?.address;
-    if (getNearRestaurangList) {
-      getNearRestaurangList.map((value: any, index: number) => {
-        if (userLocationName == `부산 ${value.gugun.split(' ')[1]}`) {
-          console.log(value.gugun);
-          return getNearRestaurangList ? (
-            <CardComponent props={value}></CardComponent>
-          ) : (
-            <div>로딩중</div>
-          );
-        }
-      });
+    {
+      if (getNearRestaurangList) {
+        return (
+          <div>
+            <CardStyle theme={theme}>
+              <div className="container">
+                <div id="title">주변 음식점 목록</div>
+                {getNearRestaurangList.map(
+                  (value: RestaurantType, index: number) =>
+                    userLocationName == `부산 ${value.gugun.split(' ')[1]}` ? (
+                      <div className="card" key={index}>
+                        <div className="card_title">{value.bsnsnm}</div>
+                        <div className="card_contents">
+                          {value.bsnsnm}의 메인 메뉴는 {value.menu} 입니다.
+                        </div>
+                        <div className="card_footer">Tel : {value.tel}</div>
+                      </div>
+                    ) : null
+                )}
+              </div>
+            </CardStyle>
+          </div>
+        );
+      }
     }
   }
 
-  useEffect(() => {
-    ConsoleLog();
-  }, [getNearRestaurangList]);
-
-  return <div>{ConsoleLog()}</div>;
+  return <CardComponent></CardComponent>;
 }
 
 export default GroupCard;
