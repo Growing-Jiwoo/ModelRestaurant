@@ -64,12 +64,12 @@ function GroupCard(): JSX.Element {
   const getNearRestaurangList: any = useNearRestaurangList();
   const location = useGeoLocation();
 
-  function CardComponent(): JSX.Element {
+  function CardComponent(props: any): JSX.Element {
     {
       return (
         <CardStyle theme={theme}>
           <div className="container">
-            <div id="title">주변 음식점 목록</div>
+            <div id="title">주변 음식점 목록 {props}</div>
             <div className="card">
               <div className="card_title">title</div>
               <div className="card_contents">contents</div>
@@ -81,12 +81,20 @@ function GroupCard(): JSX.Element {
     }
   }
   //props와 map 활용해서 카드 만들기
-  function ConsoleLog(): ReactNode | undefined {
-    return getNearRestaurangList ? (
-      <CardComponent></CardComponent>
-    ) : (
-      <div>로딩중</div>
-    );
+  function ConsoleLog(): ReactNode | undefined | any {
+    const userLocationName = location.coordinates?.address;
+    if (getNearRestaurangList) {
+      getNearRestaurangList.map((value: any, index: number) => {
+        if (userLocationName == `부산 ${value.gugun.split(' ')[1]}`) {
+          console.log(value.gugun);
+          return getNearRestaurangList ? (
+            <CardComponent props={value}></CardComponent>
+          ) : (
+            <div>로딩중</div>
+          );
+        }
+      });
+    }
   }
 
   useEffect(() => {
