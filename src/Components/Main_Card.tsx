@@ -85,14 +85,23 @@ function GroupCard(): JSX.Element {
           <div>
             <CardStyle theme={theme}>
               <div className="container">
-                <div id="title">주변 음식점 목록</div>
+                <div id="title"> 주변 음식점 목록</div>
                 {getNearRestaurangList.map(
                   (value: RestaurantType, index: number) =>
                     userLocationName == `부산 ${value.gugun.split(' ')[1]}` ? (
                       <div className="card" key={index}>
                         <div className="card_title">{value.bsnsnm}</div>
                         <div className="card_contents">
-                          {value.bsnsnm}의 메인 메뉴는 {value.menu} 입니다.
+                          <img
+                            className="food_img"
+                            alt="food_img"
+                            style={{ width: '200px' }}
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/img/img_${index + 1}.jpg`
+                            }
+                          />
+                          {/* {value.bsnsnm}의 메인 메뉴는 {value.menu} 입니다. */}
                         </div>
                         <div className="card_footer">Tel : {value.tel}</div>
                       </div>
@@ -101,6 +110,19 @@ function GroupCard(): JSX.Element {
               </div>
             </CardStyle>
           </div>
+        );
+      } else {
+        return (
+          <CardStyle theme={theme}>
+            <div className="container">
+              <div id="title">주변 음식점 목록을 불러오는 중입니다.</div>
+              <div className="card">
+                <div className="card_title">title</div>
+                <div className="card_contents">contents</div>
+                <div className="card_footer">footer</div>
+              </div>
+            </div>
+          </CardStyle>
         );
       }
     }
