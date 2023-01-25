@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
-import useNearRestaurangList from '../hooks/useNearRestaurangList';
-import useGeoLocation from '../hooks/useGeolocation';
+import useNearRestaurangList from '../utils/useNearRestaurangList';
+import useGeoLocation from '../utils/useGeolocation';
 
 const CardStyle = styled.div`
   * {
