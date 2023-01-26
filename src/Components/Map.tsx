@@ -8,11 +8,12 @@ interface RestaurantType {
   bsnsnm: never;
   gugun: string;
   id: number;
-  lat: any;
-  lon: any;
+  lat: number;
+  lon: number;
   menu: string;
   tel: string;
 }
+// 리렌더링 시 마커 여러번 찍히는 문제 해결 필요
 
 function Map() {
   const getNearRestaurangList: any = useNearRestaurangList();
@@ -22,8 +23,7 @@ function Map() {
   const { naver } = window;
   const markers: naver.maps.Marker[] = [];
   const infowindows: naver.maps.InfoWindow[] = [];
-  const contentTags =
-    '<div class="naver-container"><p class="ptag">여깁니다</p><span class="spantag">맞아요</span></div>';
+  let currentMarker: naver.maps.Marker;
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -34,6 +34,10 @@ function Map() {
         });
       });
       console.log(`현재 위치 GET 완료`);
+      const map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(35.1795543, 129.0756416),
+        zoom: 17,
+      });
     } else {
       window.alert('현재 위치를 알수 없습니다.');
     }
@@ -42,16 +46,25 @@ function Map() {
   useEffect(() => {
     if (typeof myLocation !== 'string' && getNearRestaurangList) {
       const currentPosition = [myLocation.latitude, myLocation.longitude];
+
       const map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng(currentPosition[0], currentPosition[1]),
         zoom: 17,
+        zoomControl: true,
+        minZoom: 14,
+        zoomControlOptions: {
+          position: naver.maps.Position.RIGHT_BOTTOM,
+        },
       });
 
       getNearRestaurangList.map((value: RestaurantType, index: number) => {
-        const currentMarker = new naver.maps.Marker({
+        // console.log(value);
+        const contentTags = `'<div class="naver-container"><p class="ptag">${value.bsnsnm} 여깁니다</p><span class="spantag">맞아요</span></div>'`;
+        currentMarker = new naver.maps.Marker({
           position: new naver.maps.LatLng(value.lat, value.lon),
           map,
         });
+
         const infowindow = new naver.maps.InfoWindow({
           content: contentTags,
           borderWidth: 1,
@@ -62,6 +75,37 @@ function Map() {
         markers.push(currentMarker);
         infowindows.push(infowindow);
       });
+
+      naver.maps.Event.addListener(map, 'idle', () => {
+        updateMarkers(map, markers);
+      });
+
+      const updateMarkers = (
+        isMap: naver.maps.Map,
+        isMarkers: naver.maps.Marker[]
+      ) => {
+        const mapBounds: any = isMap.getBounds();
+        let marker;
+        let position;
+        for (let i = 0; i < isMarkers.length; i += 1) {
+          marker = isMarkers[i];
+          position = marker.getPosition();
+
+          if (mapBounds.hasLatLng(position)) {
+            showMarker(isMap, marker);
+          } else {
+            hideMarker(marker);
+          }
+        }
+      };
+
+      const showMarker = (isMap: naver.maps.Map, marker: naver.maps.Marker) => {
+        marker.setMap(isMap);
+      };
+
+      const hideMarker = (marker: naver.maps.Marker) => {
+        marker.setMap(null);
+      };
 
       const getClickHandler = (seq: number) => {
         return () => {
@@ -80,44 +124,8 @@ function Map() {
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
       }
     }
-  }, [myLocation, getNearRestaurangList]);
-  // useEffect(() => {
-  //   if (getNearRestaurangList) {
-  //     getNearRestaurangList.map((value: RestaurantType, index: number) => {
-  //       console.log(value.lat, value.lon);
-  //     });
-  //   }
-  // }, [getNearRestaurangList]);
-  // const mapElement = useRef(null);
-  // const getNearRestaurangList: any = useNearRestaurangList();
+  }, [getNearRestaurangList]);
 
-  // useEffect(() => {
-  //   const { naver } = window;
-  //   if (!mapElement.current || !naver) return;
-  //   // 지도에 표시할 위치의 위도와 경도 좌표를 파라미터로 넣어줍니다.
-  //   const location = new naver.maps.LatLng(37.5656, 126.9769);
-  // const mapOptions: naver.maps.MapOptions = {
-  //   center: location,
-  //   zoom: 17,
-  //   zoomControl: true,
-  //   zoomControlOptions: {
-  //     position: naver.maps.Position.TOP_RIGHT,
-  //   },
-  // };
-  //   const map = new naver.maps.Map(mapElement.current, mapOptions);
-  //   new naver.maps.Marker({
-  //     position: location,
-  //     map,
-  //   });
-
-  //   if (getNearRestaurangList) {
-  //     getNearRestaurangList.map((value: RestaurantType, index: number) => {
-  //       console.log(value);
-  //     });
-  //   }
-  // }, [getNearRestaurangList]);
-
-  // return <div ref={mapElement} style={{ minHeight: '873px' }} />;
   return <div id="map" style={{ width: '100%', height: '873px' }} />;
 }
 
