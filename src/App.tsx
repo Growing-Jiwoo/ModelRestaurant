@@ -72,13 +72,11 @@ function App() {
 
   function MainBannerImg() {
     useEffect(() => {
-      return () => {
         setTimeout(() => {
           setBanner(false);
           navigate('/home');
         }, 2000);
         setBanner(true);
-      };
     }, []);
     return (
       <div>
