@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import theme from '../Style/theme';
 import useNearRestaurangList from '../utils/useNearRestaurangList';
 import useGeoLocation from '../utils/useGeolocation';
+import Pagination from 'react-js-pagination';
+import Paging from '../Components/paging';
 
 const CardStyle = styled.div`
   * {
@@ -76,39 +78,64 @@ interface RestaurantType {
 function GroupCard(): JSX.Element {
   const getNearRestaurangList: any = useNearRestaurangList();
   const location = useGeoLocation();
+  const [count, setCount] = useState(0); // 아이템 총 개수
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
+  const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
+  const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
+  const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
+  const [page, setPage]: any = useState(1); //현재 페이지
 
   function CardComponent(): JSX.Element | undefined | any {
     const userLocationName = location.coordinates?.address;
-    {
+    const [currentPosts, setCurrentPosts] = useState([]); // 현재 페이지에서 보여지는 아이템들
+
+    useEffect(() => {
       if (getNearRestaurangList) {
+        setCount(getNearRestaurangList.length);
+        setIndexOfLastPost(currentPage * postPerPage);
+        setIndexOfFirstPost(indexOfLastPost - postPerPage);
+        setCurrentPosts(
+          getNearRestaurangList.slice(indexOfFirstPost, indexOfLastPost)
+        );
+      }
+    }, [currentPage, indexOfFirstPost, indexOfLastPost, postPerPage]);
+    if (count != 0 && indexOfFirstPost >= 0) {
+      console.log(indexOfLastPost);
+      console.log(indexOfFirstPost);
+      console.log(count);
+      console.log(currentPosts);
+    }
+    const setPage = (e: React.SetStateAction<number>) => {
+      setCurrentPage(e);
+    };
+    {
+      if (currentPosts) {
         return (
           <div>
             <CardStyle theme={theme}>
               <div className="container">
                 <div id="title"> 주변 음식점 목록</div>
-                {getNearRestaurangList.map(
-                  (value: RestaurantType, index: number) =>
-                    userLocationName == `부산 ${value.gugun.split(' ')[1]}` ? (
-                      <div className="card" key={index}>
-                        <div className="card_title">{value.bsnsnm}</div>
-                        <div className="card_contents">
-                          <img
-                            className="food_img"
-                            alt="food_img"
-                            style={{ width: '200px' }}
-                            src={
-                              process.env.PUBLIC_URL +
-                              `/img/img_${index + 1}.jpg`
-                            }
-                          />
-                          {/* {value.bsnsnm}의 메인 메뉴는 {value.menu} 입니다. */}
-                        </div>
-                        <div className="card_footer">Tel : {value.tel}</div>
+                {currentPosts.map((value: RestaurantType, index: number) =>
+                  userLocationName == `부산 ${value.gugun.split(' ')[1]}` ? (
+                    <div className="card" key={index}>
+                      <div className="card_title">{value.bsnsnm}</div>
+                      <div className="card_contents">
+                        <img
+                          className="food_img"
+                          alt="food_img"
+                          style={{ width: '200px' }}
+                          src={
+                            process.env.PUBLIC_URL + `/img/img_${value.id}.jpg`
+                          }
+                        />
                       </div>
-                    ) : null
+                      <div className="card_footer">Tel : {value.tel}</div>
+                    </div>
+                  ) : null
                 )}
               </div>
             </CardStyle>
+            <Paging page={page} count={count} setPage={setPage} />
           </div>
         );
       } else {
@@ -129,6 +156,7 @@ function GroupCard(): JSX.Element {
   }
 
   return <CardComponent></CardComponent>;
+  // return <Paging page={currentPage} count={count} setPage={setPage} />;
 }
 
 export default GroupCard;
