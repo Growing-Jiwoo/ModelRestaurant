@@ -5,9 +5,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import GroupCard from './Components/Main_Card';
 import Map from './Components/Map';
-import useGeoLocation from './utils/useGeolocation';
-import useNearRestaurangList from './utils/useNearRestaurangList';
-import axios from 'axios';
 import ControlledCarousel from './Components/Main_Carousel';
 
 import theme from './Style/theme';
@@ -26,8 +23,6 @@ const MainDisplay = styled.div`
 function App() {
   const navigate = useNavigate();
   const [banner, setBanner] = useState(true);
-  const restaurantList: any = useRef([]);
-  const location = useGeoLocation();
   
   return (
     <div>
@@ -98,7 +93,7 @@ function App() {
     );
   }
 
-  function MainComponent(props: any): JSX.Element{
+  function MainComponent(): JSX.Element{
     useEffect(() => {
       setBanner(false);
     }, []);
