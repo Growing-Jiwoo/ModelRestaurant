@@ -76,14 +76,13 @@ interface RestaurantType {
 }
 
 function GroupCard(): JSX.Element {
-  const getNearRestaurangList: any = useNearRestaurangList();
-  const location = useGeoLocation();
+  const getNearRestaurangList: any = useNearRestaurangList(); // 음식점 리스트
+  const location = useGeoLocation(); // 사용자 현재 주소
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
   const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
-  const [page, setPage]: any = useState(1); //현재 페이지
 
   function CardComponent(): JSX.Element | undefined | any {
     const userLocationName = location.coordinates?.address;
@@ -91,22 +90,18 @@ function GroupCard(): JSX.Element {
 
     useEffect(() => {
       if (getNearRestaurangList) {
-        setCount(getNearRestaurangList.length);
         setIndexOfLastPost(currentPage * postPerPage);
         setIndexOfFirstPost(indexOfLastPost - postPerPage);
         setCurrentPosts(
           getNearRestaurangList.slice(indexOfFirstPost, indexOfLastPost)
         );
+        setCount(getNearRestaurangList.length);
       }
     }, [currentPage, indexOfFirstPost, indexOfLastPost, postPerPage]);
-    if (count != 0 && indexOfFirstPost >= 0) {
-      console.log(indexOfLastPost);
-      console.log(indexOfFirstPost);
-      console.log(count);
-      console.log(currentPosts);
-    }
+
     const setPage = (e: React.SetStateAction<number>) => {
       setCurrentPage(e);
+      console.log(count);
     };
     {
       if (currentPosts) {
@@ -135,7 +130,7 @@ function GroupCard(): JSX.Element {
                 )}
               </div>
             </CardStyle>
-            <Paging page={page} count={count} setPage={setPage} />
+            <Paging page={currentPage} count={count} setPage={setPage} />
           </div>
         );
       } else {
@@ -156,7 +151,6 @@ function GroupCard(): JSX.Element {
   }
 
   return <CardComponent></CardComponent>;
-  // return <Paging page={currentPage} count={count} setPage={setPage} />;
 }
 
 export default GroupCard;
