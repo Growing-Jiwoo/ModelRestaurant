@@ -1,11 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { useState, useEffect, useRef, useLayoutEffect, ReactNode } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import GroupCard from './Components/Main_Card';
 import Map from './Components/Map';
 import ControlledCarousel from './Components/Main_Carousel';
+import RestaurantList from './Components/Restaurant_List';
+import NavBar from './Components/Navbar';
 
 import theme from './Style/theme';
 
@@ -22,61 +24,27 @@ const MainDisplay = styled.div`
 
 function App() {
   const navigate = useNavigate();
-  const [banner, setBanner] = useState(true);
-  
+
   return (
     <div>
-      {banner === true ? null : <NavBar />}
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<MainBannerImg />}></Route>
+        <Route element={<NavBar />}>
           <Route path="/home" element={<MainComponent/>}></Route>
           <Route path="/map" element={<Map />}></Route>
+          <Route path="/list" element={<RestaurantList />}></Route>
+        </Route>
         </Routes>
       </ThemeProvider>
     </div>
   );
 
-  function NavBar() {
-    return (
-      <Navbar bg="light" variant="light">
-        <Container>
-          <Navbar.Brand href="/">
-            <img
-              className="main_banner_logo"
-              alt="homelogo"
-              style={{ width: '200px' }}
-              src={process.env.PUBLIC_URL + '/img/mainLogo.PNG'}
-            />
-          </Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link
-              onClick={() => {
-                navigate('/home');
-              }}
-            >
-              Home
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate('/map');
-              }}
-            >
-              map
-            </Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-    );
-  }
-
   function MainBannerImg() {
     useEffect(() => {
         setTimeout(() => {
-          setBanner(false);
           navigate('/home');
         }, 2000);
-        setBanner(true);
     }, []);
     return (
       <div>
@@ -92,9 +60,6 @@ function App() {
   }
 
   function MainComponent(): JSX.Element{
-    useEffect(() => {
-      setBanner(false);
-    }, []);
     return (
       <div>
         <MainDisplay>
