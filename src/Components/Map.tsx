@@ -24,6 +24,7 @@ function Map() {
   const markers: naver.maps.Marker[] = [];
   const infowindows: naver.maps.InfoWindow[] = [];
   let currentMarker: naver.maps.Marker;
+  const clickMarkerInfowindow: naver.maps.InfoWindow[] = [];
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -33,7 +34,7 @@ function Map() {
           longitude: position.coords.longitude,
         });
       });
-      console.log(`현재 위치 GET 완료`);
+      console.log(`현재 위치 GET 완료1`);
       const map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng(35.1795543, 129.0756416),
         zoom: 17,
@@ -58,7 +59,6 @@ function Map() {
       });
 
       getNearRestaurangList.map((value: RestaurantType, index: number) => {
-        // console.log(value);
         const contentTags = `'<div class="naver-container"><p class="ptag">${value.bsnsnm} 여깁니다</p><span class="spantag">맞아요</span></div>'`;
         currentMarker = new naver.maps.Marker({
           position: new naver.maps.LatLng(value.lat, value.lon),
@@ -111,11 +111,16 @@ function Map() {
         return () => {
           const marker = markers[seq];
           const infoWindow = infowindows[seq];
-
+          naver.maps.Event.addListener(map, 'idle', () => {
+            if (infoWindow.getMap()) {
+              infoWindow.close();
+            }
+          });
           if (infoWindow.getMap()) {
             infoWindow.close();
           } else {
             infoWindow.open(map, marker);
+            clickMarkerInfowindow.push(infoWindow);
           }
         };
       };
