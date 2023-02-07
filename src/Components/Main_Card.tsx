@@ -1,9 +1,8 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
 import useNearRestaurangList from '../utils/useNearRestaurangList';
 import useGeoLocation from '../utils/useGeolocation';
-import Pagination from 'react-js-pagination';
 import Paging from '../Components/paging';
 
 const CardStyle = styled.div`
@@ -83,6 +82,13 @@ function GroupCard(): JSX.Element {
   const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
+  const scrollRef: any = useRef(null);
+
+  const scrollToTop = () => {
+    scrollRef.scrollTop = scrollRef.scrollHeight;
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    scrollRef.current.scrollIntoView;
+  };
 
   function CardComponent(): JSX.Element | undefined | any {
     const userLocationName = location.coordinates?.address;
@@ -101,7 +107,6 @@ function GroupCard(): JSX.Element {
 
     const setPage = (e: React.SetStateAction<number>) => {
       setCurrentPage(e);
-      console.log(count);
     };
     {
       if (currentPosts) {
@@ -130,7 +135,12 @@ function GroupCard(): JSX.Element {
                 )}
               </div>
             </CardStyle>
-            <Paging page={currentPage} count={count} setPage={setPage} />
+            <Paging
+              onClick={scrollToTop}
+              page={currentPage}
+              count={count}
+              setPage={setPage}
+            />
           </div>
         );
       } else {
