@@ -2,9 +2,24 @@ import { useEffect, useRef, useState } from 'react';
 import { useAsync } from 'react-async';
 import axios from 'axios';
 
-type Information = { name: string; description: string };
+interface RestaurantType {
+  addrjibun: string;
+  addrroad: string;
+  bsnscond: string;
+  bsnsnm: never;
+  gugun: string;
+  id: number;
+  lat: string | number;
+  lon: string | number;
+  menu: string;
+  tel: string;
+}
 
-function useNearRestaurangList() {
+type Information = {
+  map(arg0: (value: RestaurantType) => void): RestaurantType[];
+};
+
+function useNearRestaurangList(): Information | undefined | null {
   const [nearRestaurangList, SetNearRestaurangList] =
     useState<Information | null>();
   useEffect(() => {

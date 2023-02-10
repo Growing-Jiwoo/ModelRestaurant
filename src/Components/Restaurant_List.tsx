@@ -37,17 +37,22 @@ function SelectBox(props: any): any {
   );
 }
 
-function CreateSelectBoxOption(list: any, array: any) {
+type CreateSelectBoxType = {
+  map(arg0: (value: string) => void): unknown[];
+  push(arg0: { value: string; label: string }): unknown[];
+};
+
+function CreateSelectBoxOption(list: any, array: any): void {
   list.map((value: string) => {
     array.push({ value: value, label: value });
   });
 }
 
-function RestaurantList() {
+function RestaurantList(): JSX.Element {
   const menuSetList = new Set();
   const locationSetList = new Set();
 
-  const getNearRestaurangList: any = useNearRestaurangList(); // 음식점 전체 리스트
+  const getNearRestaurangList = useNearRestaurangList(); // 음식점 전체 리스트
   const menuArray: { value: string; label: string }[] = [];
   const locationArray: { value: string; label: string }[] = [];
 
@@ -59,9 +64,8 @@ function RestaurantList() {
       });
     }
     if (menuSetList.size !== 0) {
-      const menuList = Array.from(menuSetList);
-      const locationList = Array.from(locationSetList);
-
+      const menuList: unknown | string[] = Array.from(menuSetList);
+      const locationList: unknown | string[] = Array.from(locationSetList);
       CreateSelectBoxOption(menuList, menuArray);
       CreateSelectBoxOption(locationList, locationArray);
     }
