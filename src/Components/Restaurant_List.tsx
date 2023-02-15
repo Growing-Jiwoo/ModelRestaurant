@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Select from 'react-select';
 import useNearRestaurangList from '../utils/useNearRestaurangList';
+import Restaurant_List_Table from '../Components/Restaurant_List_Table';
 
 interface RestaurantType {
   addrjibun: string;
@@ -75,6 +76,14 @@ function RestaurantList(): JSX.Element {
     <>
       <SelectBox option={menuArray} />
       <SelectBox option={locationArray} />
+      <Restaurant_List_Table />
+      <button
+        onClick={() => {
+          console.log('hi');
+        }}
+      >
+        버튼
+      </button>
     </>
   );
 }

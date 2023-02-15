@@ -16,7 +16,7 @@ interface RestaurantType {
 }
 
 type Information = {
-  map(arg0: (value: RestaurantType) => void): RestaurantType[];
+  map(arg0: (value: RestaurantType) => void): void;
 };
 
 function useNearRestaurangList(): Information | undefined | null {
