@@ -76,7 +76,7 @@ function RestaurantList(): JSX.Element {
     <>
       <SelectBox option={menuArray} />
       <SelectBox option={locationArray} />
-      <Restaurant_List_Table />
+      <Restaurant_List_Table NearRestaurangList={getNearRestaurangList} />
       <button
         onClick={() => {
           console.log('hi');

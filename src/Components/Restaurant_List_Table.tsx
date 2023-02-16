@@ -3,7 +3,7 @@ import MOCK_DATA from './MOCK_DATA.json';
 import { usePagination, useTable } from 'react-table';
 import './table.css';
 
-export const PaginationTable = () => {
+export function PaginationTable(props: any) {
   const COLUMNS = [
     {
       Header: 'Id',
@@ -28,8 +28,10 @@ export const PaginationTable = () => {
   ];
 
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => MOCK_DATA, []);
-  console.log(data);
+  const data = useMemo(
+    () => props.NearRestaurangList || [],
+    [props.NearRestaurangList]
+  );
 
   const {
     getTableProps,
@@ -57,7 +59,6 @@ export const PaginationTable = () => {
   );
 
   const { pageIndex, pageSize } = state;
-
   return (
     <div className="table">
       <table {...getTableProps()}>
@@ -152,6 +153,6 @@ export const PaginationTable = () => {
       </div>
     </div>
   );
-};
+}
 
 export default PaginationTable;
