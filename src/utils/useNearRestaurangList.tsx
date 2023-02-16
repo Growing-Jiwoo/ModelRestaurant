@@ -20,15 +20,27 @@ type Information = {
 };
 
 function useNearRestaurangList(): Information | undefined | null {
-  const [nearRestaurangList, SetNearRestaurangList] =
-    useState<Information | null>();
+  const [data, setData] = useState(null);
   useEffect(() => {
-    (async () => {
-      const posts = await axios.get('http://127.0.0.1:8000/Restaurant/');
-      SetNearRestaurangList(posts.data);
-    })();
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/Restaurant/');
+        if (response.data.length > 0) {
+          setData(response.data);
+          return data;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }, []);
-  return nearRestaurangList;
+
+  if (data === null) {
+    return [];
+  }
+
+  return data;
 }
 
 export default useNearRestaurangList;
