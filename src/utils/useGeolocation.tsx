@@ -1,80 +1,95 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-interface locationType {
-  loaded: boolean;
-  coordinates?: {
-    lat: number;
-    lng: number;
-    address: string | unknown;
-  };
-  error?: { code: number; message: string };
+interface Coordinates {
+  lat: number;
+  lng: number;
+  address: string;
 }
 
-async function mapAPI(latitude: unknown, longitude: unknown) {
+interface Location {
+  loaded: boolean;
+  coordinates?: Coordinates;
+  error?: {
+    code: number;
+    message: string;
+  };
+}
+
+interface ResponseData {
+  documents: {
+    address: {
+      region_1depth_name: string;
+      region_2depth_name: string;
+    };
+  }[];
+}
+
+const mapAPI = async (latitude: number, longitude: number) => {
   try {
-    return new Promise(function (resolve) {
-      const response = axios
-        .get(
-          `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${longitude}`,
-          {
-            headers: {
-              Authorization: 'KakaoAK 488de47883695ba1806e3203af90422a',
-            },
-          }
-        )
-        .then(async (response: { data: { documents: unknown[] } }) => {
-          const location: any = response.data.documents[0];
-          console.log(location);
-          const si = location.address.region_1depth_name;
-          const gu = location.address.region_2depth_name;
-          const userAddress = `${si} ${gu}`;
-          resolve(userAddress);
-        });
-    });
+    const response = await axios.get<ResponseData>(
+      `https://dapi.kakao.com/v2/local/geo/coord2address.json?input_coord=WGS84&x=${latitude}&y=${longitude}`,
+      {
+        headers: {
+          Authorization: 'KakaoAK 488de47883695ba1806e3203af90422a',
+        },
+      }
+    );
+    const location = response.data.documents[0];
+    const { region_1depth_name: si, region_2depth_name: gu } = location.address;
+    return `${si} ${gu}`;
   } catch (error: any) {
     console.log(error.message);
+    return '';
   }
-}
+};
 
-const useGeolocation = () => {
-  const [location, setLocation] = useState<locationType>({
+const useGeolocation = (): Location => {
+  const [location, setLocation] = useState<Location>({
     loaded: false,
-    coordinates: { lat: 0, lng: 0, address: '부산 수영구' },
+    coordinates: {
+      lat: 0,
+      lng: 0,
+      address: 'Suyeong-gu, Busan',
+    },
   });
-  // 성공에 대한 로직
-  const onSuccess = async (location: {
-    coords: { latitude: number; longitude: number };
-  }) => {
-    const address = await mapAPI(129.1284061294, 35.1740102455);
-    setLocation({
-      loaded: true,
-      coordinates: {
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-        address: address,
-      },
-    });
-  };
-
-  // 에러에 대한 로직
-  const onError = (error: { code: number; message: string }) => {
-    setLocation({
-      loaded: true,
-      error,
-    });
-  };
 
   useEffect(() => {
-    // navigator 객체 안에 geolocation이 없다면
-    // 위치 정보가 없는 것.
-    if (!('geolocation' in navigator)) {
+    const onSuccess = async (position: GeolocationPosition) => {
+      const { latitude, longitude } = position.coords;
+      // const address = await mapAPI(latitude, longitude);
+      const address = await mapAPI(129.1284061294, 35.1740102455);
+      setLocation({
+        loaded: true,
+        coordinates: {
+          lat: latitude,
+          lng: longitude,
+          address,
+        },
+      });
+    };
+
+    const onError = (error: GeolocationPositionError) => {
+      setLocation({
+        loaded: true,
+        error: {
+          code: error.code,
+          message: error.message,
+        },
+      });
+    };
+
+    if (!navigator.geolocation) {
       onError({
         code: 0,
         message: 'Geolocation not supported',
+        PERMISSION_DENIED: 0,
+        POSITION_UNAVAILABLE: 0,
+        TIMEOUT: 0,
       });
+    } else {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);
 
   return location;
