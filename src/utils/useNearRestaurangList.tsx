@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import { useAsync } from 'react-async';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface RestaurantType {
   addrjibun: string;
   addrroad: string;
   bsnscond: string;
-  bsnsnm: never;
+  bsnsnm: string;
   gugun: string;
   id: number;
   lat: string | number;
@@ -15,30 +14,24 @@ interface RestaurantType {
   tel: string;
 }
 
-type Information = {
-  map(arg0: (value: RestaurantType) => void): void;
-};
+type RestaurantList = RestaurantType[];
 
-function useNearRestaurangList(): Information | undefined | null {
-  const [data, setData] = useState(null);
+function useNearRestaurangList(): RestaurantList {
+  const [data, setData] = useState<RestaurantList>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/Restaurant/');
-        if (response.data.length > 0) {
-          setData(response.data);
-          return data;
-        }
+        const response = await axios.get<RestaurantType[]>(
+          'http://127.0.0.1:8000/Restaurant/'
+        );
+        setData(response.data);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   }, []);
-
-  if (data === null) {
-    return [];
-  }
 
   return data;
 }
