@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../Style/theme';
+// import useNearRestaurangList from '../utils/useNearRestaurangList';
 import useNearRestaurangList from '../utils/useNearRestaurangList';
 import useGeoLocation from '../utils/useGeolocation';
 import Paging from '../Components/paging';
@@ -75,6 +76,7 @@ interface RestaurantType {
 }
 
 function GroupCard(): JSX.Element {
+  // const getNearRestaurangList: RestaurantList = useNearRestaurangList(); // 음식점 리스트
   const getNearRestaurangList: any = useNearRestaurangList(); // 음식점 리스트
   const location = useGeoLocation(); // 사용자 현재 주소
   const [count, setCount] = useState(0); // 아이템 총 개수
@@ -93,6 +95,7 @@ function GroupCard(): JSX.Element {
   function CardComponent(): JSX.Element | undefined | any {
     const userLocationName = location.coordinates?.address;
     const [currentPosts, setCurrentPosts] = useState([]); // 현재 페이지에서 보여지는 아이템들
+    // const [currentPosts, setCurrentPosts] = useState<RestaurantList>([]);
 
     useEffect(() => {
       if (getNearRestaurangList) {
