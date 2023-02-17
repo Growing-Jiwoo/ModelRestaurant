@@ -14,7 +14,7 @@ interface RestaurantType {
   tel: string;
 }
 
-type RestaurantList = RestaurantType[];
+export type RestaurantList = RestaurantType[];
 
 function useNearRestaurangList(): RestaurantList {
   const [data, setData] = useState<RestaurantList>([]);
