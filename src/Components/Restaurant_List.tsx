@@ -1,89 +1,89 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import useNearRestaurangList from '../utils/useNearRestaurangList';
 import Restaurant_List_Table from '../Components/Restaurant_List_Table';
 
-interface RestaurantType {
-  addrjibun: string;
-  addrroad: string;
-  bsnscond: string;
-  bsnsnm: never;
-  gugun: string;
-  id: number;
-  lat: string | number;
-  lon: string | number;
-  menu: string;
-  tel: string;
-}
-
-interface MenuListType {
+interface OptionType {
   value: string;
   label: string;
 }
 
-function SelectBox(props: any): any {
+function SelectBox(props: {
+  options: OptionType[];
+  selectedOption: OptionType | null;
+  onChange: (selectedOption: OptionType | null) => void;
+}): JSX.Element {
   return (
-    <>
-      <Select
-        name="name"
-        className="basic-single"
-        isDisabled={false}
-        isClearable={true}
-        isRtl={true}
-        isSearchable={true}
-        defaultValue={props.option[0]} // default option
-        options={props.option} // options
-      />
-    </>
+    <Select
+      className="basic-single"
+      classNamePrefix="select"
+      defaultValue={props.selectedOption}
+      isClearable
+      isSearchable
+      name="color"
+      options={props.options}
+      onChange={props.onChange}
+    />
   );
 }
 
-type CreateSelectBoxType = {
-  map(arg0: (value: string) => void): unknown[];
-  push(arg0: { value: string; label: string }): unknown[];
-};
-
-function CreateSelectBoxOption(list: any, array: any): void {
-  list.map((value: string) => {
-    array.push({ value: value, label: value });
-  });
-}
-
 function RestaurantList(): JSX.Element {
-  const menuSetList = new Set();
-  const locationSetList = new Set();
+  const [menuOptions, setMenuOptions] = useState<OptionType[]>([]);
+  const [locationOptions, setLocationOptions] = useState<OptionType[]>([]);
+  const [selectedMenuOption, setSelectedMenuOption] =
+    useState<OptionType | null>(null);
+  const [selectedLocationOption, setSelectedLocationOption] =
+    useState<OptionType | null>(null);
 
-  const getNearRestaurangList = useNearRestaurangList(); // 음식점 전체 리스트
-  const menuArray: { value: string; label: string }[] = [];
-  const locationArray: { value: string; label: string }[] = [];
+  const nearRestaurangList: any = useNearRestaurangList() ?? [];
 
   useEffect(() => {
-    if (getNearRestaurangList) {
-      getNearRestaurangList.map((value: RestaurantType) => {
-        menuSetList.add(value.bsnscond);
-        locationSetList.add(value.gugun);
-      });
-    }
-    if (menuSetList.size !== 0) {
-      const menuList: unknown | string[] = Array.from(menuSetList);
-      const locationList: unknown | string[] = Array.from(locationSetList);
-      CreateSelectBoxOption(menuList, menuArray);
-      CreateSelectBoxOption(locationList, locationArray);
-    }
-  }, [getNearRestaurangList]);
+    const menus = Array.from(
+      new Set(
+        nearRestaurangList.map((value: { bsnscond: string }) => value.bsnscond)
+      )
+    );
+    const locations = Array.from(
+      new Set(nearRestaurangList.map((value: { gugun: string }) => value.gugun))
+    );
+
+    const menuOptions: any = menus.map((menu) => ({
+      value: menu,
+      label: menu,
+    }));
+    const locationOptions: any = locations.map((location) => ({
+      value: location,
+      label: location,
+    }));
+
+    setMenuOptions(menuOptions);
+    setLocationOptions(locationOptions);
+  }, [nearRestaurangList]);
+
+  const handleMenuChange = (option: OptionType | null) =>
+    setSelectedMenuOption(option);
+  const handleLocationChange = (option: OptionType | null) =>
+    setSelectedLocationOption(option);
+
+  const filteredRestaurants = nearRestaurangList.filter(
+    (value: { bsnscond: string; gugun: string }) =>
+      (!selectedMenuOption || value.bsnscond === selectedMenuOption.value) &&
+      (!selectedLocationOption || value.gugun === selectedLocationOption.value)
+  );
 
   return (
     <>
-      <SelectBox option={menuArray} />
-      <SelectBox option={locationArray} />
-      <Restaurant_List_Table NearRestaurangList={getNearRestaurangList} />
-      <button
-        onClick={() => {
-          console.log('hi');
-        }}
-      >
-        버튼
-      </button>
+      <SelectBox
+        options={menuOptions}
+        selectedOption={selectedMenuOption}
+        onChange={handleMenuChange}
+      />
+      <SelectBox
+        options={locationOptions}
+        selectedOption={selectedLocationOption}
+        onChange={handleLocationChange}
+      />
+      <Restaurant_List_Table NearRestaurangList={filteredRestaurants} />
     </>
   );
 }

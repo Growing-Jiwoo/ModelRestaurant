@@ -1,29 +1,28 @@
-import React, { useMemo } from 'react';
-import MOCK_DATA from './MOCK_DATA.json';
+import { useMemo } from 'react';
 import { usePagination, useTable } from 'react-table';
 import './table.css';
 
 export function PaginationTable(props: any) {
   const COLUMNS = [
     {
-      Header: 'Id',
+      Header: '순번',
       accessor: 'id',
     },
     {
-      Header: 'First Name',
-      accessor: 'first_name',
+      Header: '도로명 주소',
+      accessor: 'addrroad',
     },
     {
-      Header: 'Last Name',
-      accessor: 'last_name',
+      Header: '상호명',
+      accessor: 'bsnsnm',
     },
     {
-      Header: 'Email',
-      accessor: 'email',
+      Header: '대표 메뉴',
+      accessor: 'menu',
     },
     {
-      Header: 'Gender',
-      accessor: 'gender',
+      Header: '전화번호',
+      accessor: 'tel',
     },
   ];
 
