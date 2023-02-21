@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { useState, useEffect, useRef, useLayoutEffect, ReactNode } from 'react';
+import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import GroupCard from './Components/Main_Card';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import GroupCard from './Components/main/MainCard';
 import Map from './Components/Map';
-import ControlledCarousel from './Components/Main_Carousel';
-import RestaurantList from './Components/Restaurant_List';
-import NavBar from './Components/Navbar';
+import ControlledCarousel from './Components/main/MainCarousel';
+import RestaurantList from './Components/list/RestaurantList';
+import NavBar from './Components/commons/Navbar';
 
 import theme from './Style/theme';
 
