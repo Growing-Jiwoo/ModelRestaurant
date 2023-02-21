@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
@@ -18,15 +17,20 @@ const BannerLogo = styled.div`
   }
 `;
 
-function ControlledCarousel() {
-  const [index, setIndex] = useState(0);
+interface ControlledCarouselProps {
+  className?: string;
+}
 
-  const handleSelect = (selectedIndex: any) => {
+function ControlledCarousel({ className }: ControlledCarouselProps) {
+  const [index, setIndex] = useState<number>(0);
+
+  const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
+    console.log(selectedIndex);
   };
 
   return (
-    <div>
+    <div className={className}>
       <Carousel
         activeIndex={index}
         onSelect={handleSelect}
@@ -37,17 +41,16 @@ function ControlledCarousel() {
             <img
               className="random_banner"
               alt="bannerLogo"
-              src={process.env.PUBLIC_URL + '/img/randomBanner.PNG'}
+              src={`${process.env.PUBLIC_URL}/img/randomBanner.PNG`}
             />
           </BannerLogo>
         </Carousel.Item>
-
         <Carousel.Item>
           <BannerLogo>
             <img
               className="rank_banner"
               alt="bannerLogo"
-              src={process.env.PUBLIC_URL + '/img/rankBanner.PNG'}
+              src={`${process.env.PUBLIC_URL}/img/rankBanner.PNG`}
             />
           </BannerLogo>
         </Carousel.Item>
