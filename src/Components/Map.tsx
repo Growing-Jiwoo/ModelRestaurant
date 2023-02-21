@@ -1,22 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import useNearRestaurangList from '../utils/useNearRestaurangList';
-
-interface RestaurantType {
-  addrjibun: string;
-  addrroad: string;
-  bsnscond: string;
-  bsnsnm: never;
-  gugun: string;
-  id: number;
-  lat: number;
-  lon: number;
-  menu: string;
-  tel: string;
-}
-// 리렌더링 시 마커 여러번 찍히는 문제 해결 필요
+import { useEffect, useState } from 'react';
+import useNearRestaurangList from '../Utils/useNearRestaurangList';
+import type { RestaurantType } from '../Type/interface';
 
 function Map() {
-  const getNearRestaurangList: any = useNearRestaurangList();
+  const getNearRestaurangList = useNearRestaurangList();
   const [myLocation, setMyLocation] = useState<
     { latitude: number; longitude: number } | string
   >('');
@@ -61,7 +48,7 @@ function Map() {
       getNearRestaurangList.map((value: RestaurantType, index: number) => {
         const contentTags = `'<div class="naver-container"><p class="ptag">${value.bsnsnm} 여깁니다</p><span class="spantag">맞아요</span></div>'`;
         currentMarker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(value.lat, value.lon),
+          position: new naver.maps.LatLng(Number(value.lat), Number(value.lon)),
           map,
         });
 
