@@ -7,7 +7,6 @@ import Map from './Components/Map';
 import ControlledCarousel from './Components/main/MainCarousel';
 import RestaurantList from './Components/list/RestaurantList';
 import NavBar from './Components/commons/Navbar';
-
 import theme from './Style/theme';
 
 const MainBanner = styled.div`

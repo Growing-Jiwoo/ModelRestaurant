@@ -1,23 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import type { RestaurantType } from '../Type/interface';
 
-interface RestaurantType {
-  addrjibun: string;
-  addrroad: string;
-  bsnscond: string;
-  bsnsnm: string;
-  gugun: string;
-  id: number;
-  lat: string | number;
-  lon: string | number;
-  menu: string;
-  tel: string;
-}
+export type RestaurantListType = RestaurantType[];
 
-export type RestaurantList = RestaurantType[];
-
-function useNearRestaurangList(): RestaurantList {
-  const [data, setData] = useState<RestaurantList>([]);
+function useNearRestaurangList(): RestaurantListType {
+  const [data, setData] = useState<RestaurantListType>([]);
 
   useEffect(() => {
     const fetchData = async () => {

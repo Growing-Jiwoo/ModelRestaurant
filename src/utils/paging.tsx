@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 
@@ -59,7 +59,14 @@ const PagingStyle = styled.div`
   }
 `;
 
-const Paging = ({ page, count, setPage }: any) => {
+type PagingProps = {
+  page: number;
+  count: number;
+  setPage: (pageNumber: number) => void;
+  onClick?: () => void;
+};
+
+function Paging({ page, count, setPage }: PagingProps): ReactElement {
   return (
     <PagingStyle>
       <Pagination
@@ -73,6 +80,6 @@ const Paging = ({ page, count, setPage }: any) => {
       />
     </PagingStyle>
   );
-};
+}
 
 export default Paging;
