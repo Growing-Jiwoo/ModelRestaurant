@@ -8,6 +8,7 @@ import ControlledCarousel from './Components/main/MainCarousel';
 import RestaurantList from './Components/list/RestaurantList';
 import NavBar from './Components/commons/Navbar';
 import theme from './Style/theme';
+import DetailRestaurantInfo from './Components/list/DetailRestaurantInfo'
 
 const MainBanner = styled.div`
   ${({ theme }) => theme.common.flexCenterColumn};
@@ -32,6 +33,7 @@ function App() {
           <Route path="/home" element={<MainComponent/>}></Route>
           <Route path="/map" element={<Map />}></Route>
           <Route path="/list" element={<RestaurantList />}></Route>
+          <Route path="/list/:id" element={<DetailRestaurantInfo />}></Route>
         </Route>
         </Routes>
       </ThemeProvider>

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { usePagination, useTable } from 'react-table';
 import { TableStyle } from './styled';
 
@@ -25,12 +26,18 @@ export function PaginationTable(props: any) {
       accessor: 'tel',
     },
   ];
-
+  const navigate = useNavigate();
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(
     () => props.NearRestaurangList || [],
     [props.NearRestaurangList]
   );
+  const { id } = useParams();
+
+  // const find_product = data.find(function (x: { id: string | undefined }) {
+  //   console.log(id);
+  //   return x.id == id;
+  // });
 
   const {
     getTableProps,
@@ -81,7 +88,14 @@ export function PaginationTable(props: any) {
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell: any) => {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      <td
+                        {...cell.getCellProps()}
+                        onClick={() => {
+                          navigate(`/list/${row.original.id}`);
+                        }}
+                      >
+                        {cell.render('Cell')}
+                      </td>
                     );
                   })}
                 </tr>

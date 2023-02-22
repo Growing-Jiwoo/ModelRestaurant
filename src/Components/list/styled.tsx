@@ -28,4 +28,7 @@ export const TableStyle = styled.div`
     background-color: #04aa6d;
     color: white;
   }
+  table tr {
+    cursor: pointer;
+  }
 `;
