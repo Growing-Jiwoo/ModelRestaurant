@@ -9,7 +9,7 @@ import { CardStyle } from './styled';
 import type { RestaurantType } from '../../Type/interface';
 
 function GroupCard(): JSX.Element {
-  const getNearRestaurangList = useNearRestaurangList();
+  const getNearRestaurangList = useNearRestaurangList(null);
   const location = useGeoLocation();
   const [count, setCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);

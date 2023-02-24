@@ -3,7 +3,7 @@ import useNearRestaurangList from '../Utils/useNearRestaurangList';
 import type { RestaurantType } from '../Type/interface';
 
 function Map() {
-  const getNearRestaurangList = useNearRestaurangList();
+  const getNearRestaurangList = useNearRestaurangList(null);
   const [myLocation, setMyLocation] = useState<
     { latitude: number; longitude: number } | string
   >('');
