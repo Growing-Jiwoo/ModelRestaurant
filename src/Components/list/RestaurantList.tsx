@@ -35,7 +35,7 @@ function RestaurantList(): JSX.Element {
   const [selectedLocationOption, setSelectedLocationOption] =
     useState<OptionType | null>(null);
 
-  const nearRestaurangList: any = useNearRestaurangList() ?? [];
+  const nearRestaurangList = useNearRestaurangList(null) ?? [];
 
   useEffect(() => {
     const menus = Array.from(
