@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import theme from '../../Style/theme';
-import useNearRestaurangList, {
-  RestaurantListType,
-} from '../../Utils/useNearRestaurangList';
+import useNearRestaurangList from '../../Utils/useNearRestaurangList';
 import useGeoLocation from '../../Utils/useGeolocation';
 import Paging from '../../Utils/paging';
 import { CardStyle } from './styled';
@@ -43,7 +41,9 @@ function GroupCard(): JSX.Element {
       setCurrentPage(e);
     };
     {
-      if (currentPosts) {
+      if (getNearRestaurangList.length !== 0) {
+        console.log(getNearRestaurangList.length);
+
         return (
           <div>
             <CardStyle theme={theme}>
@@ -77,7 +77,8 @@ function GroupCard(): JSX.Element {
             />
           </div>
         );
-      } else {
+      } else if (getNearRestaurangList.length === 0) {
+        console.log('주변 음식점 목록을 불러오는 중입니다.');
         return (
           <CardStyle theme={theme}>
             <div className="container">
