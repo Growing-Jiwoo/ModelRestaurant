@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import useNearRestaurangList from '../../Utils/useNearRestaurangList';
+import LodingUi from '../commons/LodingUi';
 import Restaurant_List_Table from './RestaurantListTable';
 
 interface OptionType {
@@ -70,22 +71,25 @@ function RestaurantList(): JSX.Element {
       (!selectedMenuOption || value.bsnscond === selectedMenuOption.value) &&
       (!selectedLocationOption || value.gugun === selectedLocationOption.value)
   );
-
-  return (
-    <>
-      <SelectBox
-        options={menuOptions}
-        selectedOption={selectedMenuOption}
-        onChange={handleMenuChange}
-      />
-      <SelectBox
-        options={locationOptions}
-        selectedOption={selectedLocationOption}
-        onChange={handleLocationChange}
-      />
-      <Restaurant_List_Table NearRestaurangList={filteredRestaurants} />
-    </>
-  );
+  if (filteredRestaurants.length !== 0) {
+    return (
+      <>
+        <SelectBox
+          options={menuOptions}
+          selectedOption={selectedMenuOption}
+          onChange={handleMenuChange}
+        />
+        <SelectBox
+          options={locationOptions}
+          selectedOption={selectedLocationOption}
+          onChange={handleLocationChange}
+        />
+        <Restaurant_List_Table NearRestaurangList={filteredRestaurants} />
+      </>
+    );
+  } else {
+    return <LodingUi />;
+  }
 }
 
 export default RestaurantList;

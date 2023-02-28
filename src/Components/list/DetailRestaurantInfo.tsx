@@ -4,6 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 import { ImgStyle, RestaurantInfoStyle, RestaurantMapStyle } from './styled';
 import type { RestaurantType } from '../../Type/interface';
 import { useEffect } from 'react';
+import LodingUi from '../commons/LodingUi';
 
 interface Params extends Record<string, string> {
   id: string;
@@ -112,7 +113,11 @@ function DetailRestaurantInfo(): JSX.Element {
     );
   } else {
     console.log('데이터 없음');
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <LodingUi></LodingUi>
+      </div>
+    );
   }
 }
 export default DetailRestaurantInfo;
