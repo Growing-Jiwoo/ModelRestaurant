@@ -39,7 +39,7 @@ export const ImgStyle = styled.div`
     flex-flow: row wrap;
     justify-content: space-around;
     align-content: flex-start;
-    margin: 3% 0;
+    margin: 2% 0;
   }
   #restaurantImg {
     width: 13%;
@@ -54,13 +54,21 @@ export const RestaurantInfoStyle = styled.div`
     align-items: center;
   }
   .listItem {
-    width: 30%;
+    width: 40%;
     text-align: center;
   }
 
   #listHeader {
     background-color: lightgray;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
+  }
+`;
+
+export const RestaurantMapStyle = styled.div`
+  #map {
+    width: 100%;
+    height: 50vh;
+    margin: 3% 0px 0px 0px;
   }
 `;
