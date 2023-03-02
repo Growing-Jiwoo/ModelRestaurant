@@ -55,3 +55,22 @@ export const CardStyle = styled.div`
     flex: 1;
   }
 `;
+
+export const BannerLogoStyle = styled.div`
+  img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 400px;
+    margin: 0 auto;
+  }
+
+  .random_banner {
+    cursor: pointer;
+  }
+
+  #Carousel {
+    margin: 20px 0 0 0;
+  }
+`;
