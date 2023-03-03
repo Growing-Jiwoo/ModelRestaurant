@@ -15,6 +15,13 @@ interface CardListProps {
 function MainCardList({ currentPosts, userLocationName }: CardListProps) {
   const navigate = useNavigate();
 
+  const handleClick = (value: RestaurantType) => {
+    const PreviousData = localStorage.getItem('cardData');
+    const newData = [...(PreviousData ? JSON.parse(PreviousData) : []), value];
+    localStorage.setItem('cardData', JSON.stringify(newData));
+    navigate(`/list/${value.id}`);
+  };
+
   return (
     <div>
       <CardStyle>
@@ -25,9 +32,7 @@ function MainCardList({ currentPosts, userLocationName }: CardListProps) {
               <div
                 className="card"
                 key={index}
-                onClick={() => {
-                  navigate(`/list/${value.id}`);
-                }}
+                onClick={() => handleClick(value)}
               >
                 <div className="card_title">{value.bsnsnm}</div>
                 <div className="card_contents">
