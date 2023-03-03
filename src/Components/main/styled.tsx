@@ -35,6 +35,7 @@ export const CardStyle = styled.div`
     height: 250px;
     border: 1px solid red;
     margin: 20px 0px 20px 0px;
+    cursor: pointer;
   }
 
   .card_title {
