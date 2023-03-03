@@ -5,6 +5,7 @@ import useGeoLocation from '../../Utils/useGeolocation';
 import Paging from '../../Utils/paging';
 import type { RestaurantType } from '../../Type/interface';
 import { CardStyle } from './styled';
+import { useNavigate } from 'react-router-dom';
 
 interface CardListProps {
   currentPosts: RestaurantType[];
@@ -12,6 +13,8 @@ interface CardListProps {
 }
 
 function MainCardList({ currentPosts, userLocationName }: CardListProps) {
+  const navigate = useNavigate();
+
   return (
     <div>
       <CardStyle>
@@ -19,7 +22,13 @@ function MainCardList({ currentPosts, userLocationName }: CardListProps) {
           <div id="title"> {userLocationName} 주변 음식점 목록</div>
           {currentPosts.map((value: RestaurantType, index: number) =>
             userLocationName == `부산 ${value.gugun.split(' ')[1]}` ? (
-              <div className="card" key={index}>
+              <div
+                className="card"
+                key={index}
+                onClick={() => {
+                  navigate(`/list/${value.id}`);
+                }}
+              >
                 <div className="card_title">{value.bsnsnm}</div>
                 <div className="card_contents">
                   <img
