@@ -37,28 +37,6 @@ function MainBannerImg() {
   );
 }
 
-// function App() {
-//   return (
-//     <div>
-//       <ThemeProvider theme={theme}>
-//         <Routes>
-//           <Route path="/" element={<MainBannerImg />}></Route>
-//         <Route element={<NavBar />}>
-//         <Route element={<Footer />}>
-//           <Route path="/home" element={<MainComponent/>}></Route>
-//           <Route path="/map" element={<Map />}></Route>
-//           <Route path="/list" element={<RestaurantList />}></Route>
-//           <Route path="/list/:id" element={<DetailRestaurantInfo />}></Route>
-//           </Route>
-//         </Route>
-//         </Routes>
-//       </ThemeProvider>
-//     </div>
-//   );
-// }
-
-// export default App;
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
