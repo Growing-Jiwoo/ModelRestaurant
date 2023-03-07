@@ -17,3 +17,17 @@ export const LodingUiStyle = styled.div`
   #spinner {
   }
 `;
+
+export const SidebarStyle = styled.div`
+  .sideBar {
+    position: fixed;
+    right: 50%;
+    top: 50%;
+    margin-right: -720px;
+    text-align: center;
+    width: 120px;
+    background-color: #f2f2f2;
+    word-wrap: break-word;
+    z-index: 2;
+  }
+`;
