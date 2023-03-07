@@ -1,11 +1,18 @@
 import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  Outlet,
+  useLocation,
+} from 'react-router-dom';
 import MainComponent from './Components/main/HomeUi';
 import Map from './Components/Map';
 import RestaurantList from './Components/list/RestaurantList';
 import NavBar from './Components/commons/Navbar';
 import Footer from './Components/commons/Footer';
+import Sidebar from './Components/commons/Sidebar';
 import theme from './Style/theme';
 import DetailRestaurantInfo from './Components/list/DetailRestaurantInfo';
 
@@ -60,9 +67,14 @@ function App() {
 }
 
 const MainLayout = () => {
+  const location = useLocation();
+
+  const showSidebar = location.pathname === '/home';
+
   return (
     <>
       <NavBar />
+      {showSidebar && <Sidebar />}
       <Outlet />
       <Footer />
     </>
