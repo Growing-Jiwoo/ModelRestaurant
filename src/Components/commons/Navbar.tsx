@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
+import SearchUi from '../commons/SearchUi';
 
 function NavBar() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ function NavBar() {
               list
             </Nav.Link>
           </Nav>
+          <SearchUi />
         </Container>
       </Navbar>
       {/* <Outlet /> */}
