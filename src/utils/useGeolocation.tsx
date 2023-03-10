@@ -5,6 +5,7 @@ interface Coordinates {
   lat: number;
   lng: number;
   address: string;
+  place: string;
 }
 
 interface Location {
@@ -18,6 +19,9 @@ interface Location {
 
 interface ResponseData {
   documents: {
+    road_address: {
+      building_name: string;
+    };
     address: {
       region_1depth_name: string;
       region_2depth_name: string;
@@ -36,8 +40,9 @@ const mapAPI = async (latitude: number, longitude: number) => {
       }
     );
     const location = response.data.documents[0];
+    const placeName = location.road_address.building_name.replace(/ /g, '');
     const { region_1depth_name: si, region_2depth_name: gu } = location.address;
-    return `${si} ${gu}`;
+    return `${si} ${gu} ${placeName}`;
   } catch (error: any) {
     console.log(error.message);
     return '';
@@ -50,7 +55,8 @@ const useGeolocation = (): Location => {
     coordinates: {
       lat: 0,
       lng: 0,
-      address: 'Suyeong-gu, Busan',
+      address: '부산 수영구',
+      place: '',
     },
   });
 
@@ -59,12 +65,15 @@ const useGeolocation = (): Location => {
       const { latitude, longitude } = position.coords;
       // const address = await mapAPI(latitude, longitude);
       const address = await mapAPI(129.1284061294, 35.1740102455);
+      const userAddress = `${address.split(' ')[0]} ${address.split(' ')[1]}`;
+
       setLocation({
         loaded: true,
         coordinates: {
           lat: latitude,
           lng: longitude,
-          address,
+          address: userAddress,
+          place: address,
         },
       });
     };
@@ -91,7 +100,6 @@ const useGeolocation = (): Location => {
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
   }, []);
-
   return location;
 };
 
