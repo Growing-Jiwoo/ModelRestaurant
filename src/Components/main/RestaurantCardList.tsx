@@ -15,12 +15,17 @@ interface CardListProps {
 function MainCardList({ currentPosts, userLocationName }: CardListProps) {
   const navigate = useNavigate();
 
-  const handleClick = (value: RestaurantType) => {
+  function handleClick(value: RestaurantType) {
     const PreviousData = localStorage.getItem('cardData');
-    const newData = [...(PreviousData ? JSON.parse(PreviousData) : []), value];
-    localStorage.setItem('cardData', JSON.stringify(newData));
+    const dataArray = PreviousData ? JSON.parse(PreviousData) : [];
+
+    if (!dataArray.some((item: RestaurantType) => item.id === value.id)) {
+      const newData = [...dataArray, value];
+      localStorage.setItem('cardData', JSON.stringify(newData));
+    }
+
     navigate(`/list/${value.id}`);
-  };
+  }
 
   return (
     <div>
