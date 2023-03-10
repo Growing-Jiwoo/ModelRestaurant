@@ -8,7 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import MainComponent from './Components/main/HomeUi';
-import Map from './Components/Map';
+import Map from './Components/map/Map';
 import RestaurantList from './Components/list/RestaurantList';
 import NavBar from './Components/commons/Navbar';
 import Footer from './Components/commons/Footer';

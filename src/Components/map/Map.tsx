@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import useNearRestaurangList from '../Utils/useNearRestaurangList';
-import type { RestaurantType } from '../Type/interface';
+import useNearRestaurangList from '../../Utils/useNearRestaurangList';
+import type { RestaurantType } from '../../Type/interface';
 
 function Map() {
   const getNearRestaurangList = useNearRestaurangList(null);
