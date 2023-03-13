@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import useNearRestaurangList from '../../Utils/useNearRestaurangList';
+import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 import { ListGroup } from 'react-bootstrap';
 import { ImgStyle, RestaurantInfoStyle, RestaurantMapStyle } from './styled';
 import type { RestaurantType } from '../../Type/interface';

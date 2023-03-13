@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import useNearRestaurangList from '../../Utils/useNearRestaurangList';
+import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 import LodingUi from '../commons/LodingUi';
 import Restaurant_List_Table from './RestaurantListTable';
 

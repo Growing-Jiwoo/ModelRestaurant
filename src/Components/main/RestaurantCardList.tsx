@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import theme from '../../Style/theme';
 import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 import useGeoLocation from '../../Hooks/useGeolocation';
-import Paging from '../../Utils/paging';
+import Paging from '../../Hooks/usePaging';
 import type { RestaurantType } from '../../Type/interface';
 import { CardStyle } from './styled';
 import { useNavigate } from 'react-router-dom';
