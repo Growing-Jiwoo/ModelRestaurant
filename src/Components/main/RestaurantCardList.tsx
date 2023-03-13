@@ -3,9 +3,9 @@ import theme from '../../Style/theme';
 import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 import useGeoLocation from '../../Hooks/useGeolocation';
 import Paging from '../../Hooks/usePaging';
+import { useRecently } from '../../Hooks/useRecently';
 import type { RestaurantType } from '../../Type/interface';
 import { CardStyle } from './styled';
-import { useNavigate } from 'react-router-dom';
 
 interface CardListProps {
   currentPosts: RestaurantType[];
@@ -13,19 +13,7 @@ interface CardListProps {
 }
 
 function MainCardList({ currentPosts, userLocationName }: CardListProps) {
-  const navigate = useNavigate();
-
-  function handleClick(value: RestaurantType) {
-    const PreviousData = localStorage.getItem('cardData');
-    const dataArray = PreviousData ? JSON.parse(PreviousData) : [];
-
-    if (!dataArray.some((item: RestaurantType) => item.id === value.id)) {
-      const newData = [...dataArray, value];
-      localStorage.setItem('cardData', JSON.stringify(newData));
-    }
-
-    navigate(`/list/${value.id}`);
-  }
+  const handleClick = useRecently();
 
   return (
     <div>
