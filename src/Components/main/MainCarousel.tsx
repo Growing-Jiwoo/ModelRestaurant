@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import { BannerLogoStyle } from './styled';
-import { useNavigate } from 'react-router-dom';
 import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 
-function ControlledCarousel() {
+function ControlledCarousel(): JSX.Element {
   const [index, setIndex] = useState<number>(0);
-  const getNearRestaurangList = useNearRestaurangList(null);
-  const [count, setCount] = useState<number>(0);
+  const [restaurantCount, setRestaurantCount] = useState<number>(0);
+  const nearRestaurants = useNearRestaurangList(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getNearRestaurangList.length !== 0) {
-      console.log(getNearRestaurangList);
-      setCount(getNearRestaurangList.length);
+    if (nearRestaurants.length !== 0) {
+      setRestaurantCount(nearRestaurants.length);
     }
-  }, [getNearRestaurangList]);
+  }, [nearRestaurants]);
 
-  const handleSelect = (selectedIndex: number) => {
+  function handleSelect(selectedIndex: number): void {
     setIndex(selectedIndex);
-  };
+  }
 
-  function handleOnClick() {
-    if (count !== 0) {
-      const randomNum = Math.floor(Math.random() * count) + 1;
-      navigate(`/list/${randomNum}`);
+  function handleBannerClick(): void {
+    if (restaurantCount !== 0) {
+      const randomRestaurantIndex: number =
+        Math.floor(Math.random() * restaurantCount) + 1;
+      navigate(`/list/${randomRestaurantIndex}`);
     }
   }
 
@@ -37,9 +37,7 @@ function ControlledCarousel() {
               className="random_banner"
               alt="bannerLogo"
               src={`${process.env.PUBLIC_URL}/img/randomBanner.PNG`}
-              onClick={() => {
-                handleOnClick();
-              }}
+              onClick={handleBannerClick}
             />
           </Carousel.Item>
           <Carousel.Item>
