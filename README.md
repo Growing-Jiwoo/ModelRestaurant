@@ -12,10 +12,10 @@ React.js, TypeScript, HTML, CSS, MySQL, Django
 
 ### [폴더 구조]
 
-![directory](https://user-images.githubusercontent.com/115076308/224252401-705cea01-9bf2-4245-a779-a63685919ce6.jpg)
+![image](https://user-images.githubusercontent.com/115076308/224614000-235f24d8-9cb8-479a-864e-aa72dbccc153.png)
 
 - components  
-재사용 가능한 컴포넌트들이 위치하는 폴더
+각 페이지에 출력되는 모든 컴포넌트들이 위치하는 폴더
 
 - commons  
 공통적으로 사용되는 Component들이 위치하는 폴더
@@ -24,7 +24,10 @@ React.js, TypeScript, HTML, CSS, MySQL, Django
 각 url에서 사용되는 Component들이 위치하는 폴더
 
 - Utils  
-공통함수 등 공통으로 사용하는 유틸 파일들이 위치하는 폴더
+전역에서 공통으로 사용하는 util 함수들이 위치하는 폴더
+
+- hooks  
+전역에서 공통으로 Custom hooks들이 위치하는 폴더
 
 - Style  
 전역에서 공통으로 사용되는 CSS 파일들이 위치하는 폴더
