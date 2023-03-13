@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import theme from '../../Style/theme';
-import useNearRestaurangList from '../../Utils/useNearRestaurangList';
-import useGeoLocation from '../../Utils/useGeolocation';
+import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
+import useGeoLocation from '../../Hooks/useGeolocation';
 import Paging from '../../Utils/paging';
 import type { RestaurantType } from '../../Type/interface';
 import { CardStyle } from './styled';
