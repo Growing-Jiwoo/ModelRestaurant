@@ -12,6 +12,10 @@ class Modelrestaurant(models.Model):
     addrroad = models.CharField(db_column='addrRoad', max_length=100, blank=True, null=True)  # Field name made lowercase.
     addrjibun = models.CharField(db_column='addrJibun', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
-        db_table = 'modelrestaurant'
+class User(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+
+class Meta:
+    managed = False
+    db_table = 'modelrestaurant'
