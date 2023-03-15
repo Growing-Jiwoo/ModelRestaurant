@@ -9,7 +9,7 @@ function NavBar() {
     <>
       <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/home">
             <img
               className="main_banner_logo"
               alt="homelogo"
@@ -18,13 +18,6 @@ function NavBar() {
             />
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link
-              onClick={() => {
-                navigate('/home');
-              }}
-            >
-              Home
-            </Nav.Link>
             <Nav.Link
               onClick={() => {
                 navigate('/map');
