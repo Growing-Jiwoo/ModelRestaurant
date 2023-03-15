@@ -75,3 +75,19 @@ export const BannerLogoStyle = styled.div`
     margin: 20px 0 0 0;
   }
 `;
+
+export const MainDisplay = styled.div`
+  animation: ${({ theme }) => theme.animation.fast_fadein_fadeout};
+`;
+
+export const MainBanner = styled.div`
+  ${({ theme }) => theme.common.flexCenterColumn};
+  animation: ${({ theme }) => theme.animation.slow_fadein_fadeout};
+  margin-top: 23vh;
+  min-height: 70vh;
+`;
+
+export const MainBannerImage = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
