@@ -1,9 +1,12 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Form, Input, Button, LogoImage } from './styled';
 import { useCookies } from 'react-cookie';
+import useAxiosWithAuth from '../../Hooks/useAxiosWithAuth';
+import { useNavigate } from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
+  const axiosInstance = useAxiosWithAuth();
+  const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['jwt']);
   const [values, setValues] = useState({
     username: '',
@@ -20,11 +23,9 @@ function LoginScreen(): JSX.Element {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/users/login/',
-        values
-      );
+      const response = await axiosInstance.post('users/login/', values);
       setCookie('jwt', response.data.token);
+      navigate('/home');
     } catch (error) {
       throw '로그인 실패';
     }
