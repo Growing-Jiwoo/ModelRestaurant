@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import MainComponent from './Components/main/HomeUi';
+import MainComponent from './Components/main/MainComponent';
 import LoginUi from './Components/login/LoginUi';
 import Map from './Components/map/Map';
 import RestaurantList from './Components/list/RestaurantList';
