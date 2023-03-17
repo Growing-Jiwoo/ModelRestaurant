@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import type { RestaurantType } from '../Type/interface';
 
-export function useRecently() {
+export function recentRestaurant() {
   const navigate = useNavigate();
 
   function handleClick(value: RestaurantType) {

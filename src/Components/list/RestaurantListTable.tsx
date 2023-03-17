@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usePagination, useTable } from 'react-table';
 import { TableStyle } from './styled';
-import { useRecently } from '../../Hooks/useRecently';
+import { recentRestaurant } from '../../Utils/recentRestaurant';
 
 export function PaginationTable(props: any) {
-  const handleClick = useRecently();
+  const handleClick = recentRestaurant();
   const COLUMNS = [
     {
       Header: '순번',
