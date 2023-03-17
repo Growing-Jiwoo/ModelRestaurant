@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import useAxiosWithAuth from './useAxiosWithAuth';
 import type { RestaurantType } from '../Type/interface';
 
 export type RestaurantListType = RestaurantType[];
@@ -7,27 +7,22 @@ export type RestaurantListType = RestaurantType[];
 function useNearRestaurangList(id: any | null): RestaurantListType {
   const [data, setData] = useState<RestaurantListType>([]);
 
+  const axiosInstance = useAxiosWithAuth();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (id) {
-          console.log(`http://127.0.0.1:8000/Restaurant/${id}`);
-          const response = await axios.get<RestaurantType[]>(
-            `http://127.0.0.1:8000/Restaurant/${id}/`
-          );
-          setData(response.data);
-        } else if (id === null) {
-          const response = await axios.get<RestaurantType[]>(
-            `http://127.0.0.1:8000/Restaurant/`
-          );
-          setData(response.data);
-        }
+        const url = id
+          ? `http://127.0.0.1:8000/Restaurant/${id}/`
+          : 'http://127.0.0.1:8000/Restaurant/';
+        const response = await axiosInstance.get<RestaurantType[]>(url);
+        setData(response.data);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return data;
 }
