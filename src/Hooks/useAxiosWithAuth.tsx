@@ -25,8 +25,6 @@ const useAxiosWithAuth = (): AxiosInstance => {
         (
           config.headers as AxiosRequestHeaders
         ).Authorization = `Bearer ${token}`;
-      } else if (token === undefined) {
-        navigate('/');
       }
       return config;
     },
