@@ -3,7 +3,7 @@ import theme from '../../Style/theme';
 import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 import useGeoLocation from '../../Hooks/useGeolocation';
 import Paging from '../../Hooks/usePaging';
-import { useRecently } from '../../Hooks/useRecently';
+import { useRecently } from '../../Utils/recentRestaurant';
 import type { RestaurantType } from '../../Type/interface';
 import { CardStyle } from './styled';
 
