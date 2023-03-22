@@ -71,3 +71,19 @@ export const FooterStyle = styled.footer`
     text-align: center;
   }
 `;
+
+export const LogoutButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: #000;
+  }
+`;

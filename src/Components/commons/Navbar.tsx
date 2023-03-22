@@ -1,9 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import SearchUi from '../commons/SearchUi';
-
+import { useCookies } from 'react-cookie';
+import { LogoutButton } from './styled';
 function NavBar() {
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+
+  const handleLogout = () => {
+    removeCookie('jwt');
+    navigate('/');
+  };
 
   return (
     <>
@@ -35,6 +42,7 @@ function NavBar() {
           </Nav>
           <SearchUi />
         </Container>
+        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
       </Navbar>
     </>
   );
