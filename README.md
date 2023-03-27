@@ -10,7 +10,7 @@
 
 React.js, TypeScript, HTML, CSS, MySQL, Django
 
-### [폴더 구조]
+### [폴더 구조] (주기적으로 내용 최신화 중)
 
 ![image](https://user-images.githubusercontent.com/115076308/224614000-235f24d8-9cb8-479a-864e-aa72dbccc153.png)
 
