@@ -3,17 +3,17 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework_jwt.settings import api_settings
 from .models import User
-from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Modelrestaurant
-from .serializers import ModelrestaurantSerializer
+from .serializers import ModelrestaurantSerializer, ModelrestaurantViewCntSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 import jwt
 from django.conf import settings
+from rest_framework.generics import UpdateAPIView
 
 class IsTokenValid(BasePermission):
     authentication_classes = (JSONWebTokenAuthentication)
@@ -25,7 +25,6 @@ class IsTokenValid(BasePermission):
             return False
 
 class RestaurantList(APIView):
-
     def get(self, request):
         try:
             token = request.headers.get('Authorization', '').split()[1]
@@ -81,3 +80,13 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'token': token})
         else:
             return Response({'error': 'Invalid credentials'}, status=400)
+
+class ModelrestaurantUpdateView(APIView):
+    def put(self, request):
+        id_counts = request.data.get('viewCnt', {})
+        for id, count in id_counts.items():
+            obj = Modelrestaurant.objects.filter(id=id).first()
+            if obj is not None:
+                obj.viewcnt += count
+                obj.save()
+        return Response({'message': f'View count updated for {len(id_counts)} items.'})
