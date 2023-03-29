@@ -3,14 +3,22 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import SearchUi from '../commons/SearchUi';
 import { useCookies } from 'react-cookie';
 import { LogoutButton } from './styled';
+import { submitViewCntData } from '../../Utils/submitViewCnt';
+
 function NavBar() {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
 
-  const handleLogout = () => {
-    removeCookie('jwt');
-    navigate('/');
-  };
+  async function handleLogout() {
+    try {
+      await submitViewCntData();
+      localStorage.removeItem('viewCnt');
+      removeCookie('jwt');
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
