@@ -47,6 +47,13 @@ function NavBar() {
             >
               list
             </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('/chart');
+              }}
+            >
+              chart
+            </Nav.Link>
           </Nav>
           <SearchUi />
         </Container>
