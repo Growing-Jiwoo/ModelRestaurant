@@ -6,14 +6,12 @@ from .models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Modelrestaurant
-from .serializers import ModelrestaurantSerializer, ModelrestaurantViewCntSerializer, UserSerializer
+from .serializers import ModelrestaurantSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-import jwt
-from django.conf import settings
-from rest_framework.generics import UpdateAPIView
+from .authentication import authenticate_request
 
 class IsTokenValid(BasePermission):
     authentication_classes = (JSONWebTokenAuthentication)
@@ -27,18 +25,12 @@ class IsTokenValid(BasePermission):
 class RestaurantList(APIView):
     def get(self, request):
         try:
-            token = request.headers.get('Authorization', '').split()[1]
-            request.auth = token
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            payload = authenticate_request(request)
             restaurants = Modelrestaurant.objects.all()
-        except jwt.ExpiredSignatureError:
-            return Response({'error': '토큰 만료'}, status=status.HTTP_401_UNAUTHORIZED)
-        except (jwt.DecodeError, jwt.InvalidTokenError):
-            return Response({'error': '잘못된 토큰'}, status=status.HTTP_401_UNAUTHORIZED)
+        except AuthenticationFailed as e:
+            return Response(e.detail, status=e.status_code)
         except Modelrestaurant.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        except IndexError:
-            return Response({'error': '토큰이 없음'}, status=status.HTTP_401_UNAUTHORIZED)
 
         serializer = ModelrestaurantSerializer(restaurants, many=True)
         return Response(serializer.data)
@@ -47,18 +39,12 @@ class RestaurantDetail(APIView):
 
     def get(self, request, pk):
         try:
-            token = request.headers.get('Authorization', '').split()[1]
-            request.auth = token
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            payload = authenticate_request(request)
             restaurant = Modelrestaurant.objects.get(pk=pk)
-        except jwt.ExpiredSignatureError:
-            return Response({'error': '토큰 만료'}, status=status.HTTP_401_UNAUTHORIZED)
-        except (jwt.DecodeError, jwt.InvalidTokenError):
-            return Response({'error': '잘못된 토큰'}, status=status.HTTP_401_UNAUTHORIZED)
+        except AuthenticationFailed as e:
+            return Response(e.detail, status=e.status_code)
         except Modelrestaurant.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        except IndexError:
-            return Response({'error': '토큰이 없음'}, status=status.HTTP_401_UNAUTHORIZED)
 
         serializer = ModelrestaurantSerializer(restaurant)
         return Response(serializer.data)
@@ -90,3 +76,15 @@ class ModelrestaurantUpdateView(APIView):
                 obj.viewcnt += count
                 obj.save()
         return Response({'message': f'View count updated for {len(id_counts)} items.'})
+
+class ModelrestaurantListView(APIView):
+    def get(self, request):
+        try:
+            payload = authenticate_request(request)
+            restaurants = Modelrestaurant.objects.values('id', 'bsnsnm', 'viewcnt').order_by('-viewcnt')[:3]
+        except AuthenticationFailed as e:
+            return Response(e.detail, status=e.status_code)
+        except Modelrestaurant.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        return Response(restaurants)
