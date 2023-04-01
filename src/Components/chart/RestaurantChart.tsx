@@ -1,6 +1,42 @@
 import { ResponsivePie } from '@nivo/pie';
+import { useEffect, useState } from 'react';
+import useAxiosWithAuth from '../../Hooks/useAxiosWithAuth';
+import LodingUi from '../commons/LodingUi';
+
+function useRankData() {
+  const axiosInstance = useAxiosWithAuth();
+  const [rankData, setRankData] = useState<RankDataType[]>([]);
+
+  interface RankDataType {
+    id: number;
+    bsnsnm: string;
+    viewcnt: number;
+  }
+
+  useEffect(() => {
+    async function getRankData() {
+      try {
+        const url = `http://127.0.0.1:8000/rankData`;
+        const response = await axiosInstance.get<RankDataType[]>(url);
+        setRankData(response.data);
+      } catch (error: unknown) {
+        console.log(error);
+        throw error;
+      }
+    }
+    getRankData();
+  }, []);
+
+  return rankData;
+}
 
 function RestaurantChart() {
+  const rankData = useRankData();
+  const modifiedA = rankData.map(({ bsnsnm, viewcnt }) => ({
+    id: bsnsnm,
+    value: viewcnt,
+  }));
+
   const handle = {
     padClick: (data: any) => {
       console.log(data);
@@ -10,121 +46,38 @@ function RestaurantChart() {
       console.log(data);
     },
   };
-
-  return (
-    // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
-    <div style={{ width: '800px', height: '500px', margin: '0 auto' }}>
-      <ResponsivePie
-        /**
-         * chart에 사용될 데이터
-         */
-        data={[
-          { id: 'cola', value: 324 },
-          { id: 'cidar', value: 88 },
-          { id: 'fanta', value: 221 },
-        ]}
-        /**
-         * chart margin
-         */
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        /**
-         * chart 중간 빈공간 반지름
-         */
-        innerRadius={0.5}
-        /**
-         * pad 간격
-         */
-        padAngle={1.8}
-        /**
-         * pad radius 설정 (pad별 간격이 있을 시 보임)
-         */
-        cornerRadius={8}
-        /**
-         * chart 색상
-         */
-        colors={['olive', 'brown', 'orange']} // 커스터하여 사용할 때
-        // colors={{ scheme: 'nivo' }} // nivo에서 제공해주는 색상 조합 사용할 때
-        /**
-         * pad border 두께 설정
-         */
-        borderWidth={2}
-        /**
-         * link label skip할 기준 각도
-         */
-        enableArcLinkLabels={false}
-        arcLinkLabelsSkipAngle={0}
-        /**
-         * link label 색상
-         */
-        arcLinkLabelsTextColor="#000000"
-        /**
-         * link label 연결되는 선 두께
-         */
-        arcLinkLabelsThickness={2}
-        /**
-         * link label 연결되는 선 색상
-         */
-        arcLinkLabelsColor={{ from: 'color' }} // pad 색상에 따라감
-        /**
-         * label (pad에 표현되는 글씨) skip할 기준 각도
-         */
-        arcLabelsSkipAngle={10}
-        theme={{
-          /**
-           * label style (pad에 표현되는 글씨)
-           */
-          labels: {
-            text: {
-              fontSize: 14,
-              fill: '#000000',
-            },
-          },
-          /**
-           * legend style (default로 하단에 있는 색상별 key 표시)
-           */
-          legends: {
-            text: {
-              fontSize: 12,
-              fill: '#000000',
-            },
-          },
-        }}
-        /**
-         * pad 클릭 이벤트
-         */
-        onClick={handle.padClick}
-        /**
-         * legend 설정 (default로 하단에 있는 색상별 key 표시)
-         */
-        legends={[
-          {
-            anchor: 'bottom', // 위치
-            direction: 'row', // item 그려지는 방향
-            justify: false, // 글씨, 색상간 간격 justify 적용 여부
-            translateX: 0, // chart와 X 간격
-            translateY: 56, // chart와 Y 간격
-            itemsSpacing: 0, // item간 간격
-            itemWidth: 100, // item width
-            itemHeight: 18, // item height
-            itemDirection: 'left-to-right', // item 내부에 그려지는 방향
-            itemOpacity: 1, // item opacity
-            symbolSize: 18, // symbol (색상 표기) 크기
-            symbolShape: 'circle', // symbol (색상 표기) 모양
-            effects: [
-              {
-                // 추가 효과 설정 (hover하면 textColor를 olive로 변경)
-                on: 'hover',
-                style: {
-                  itemTextColor: 'olive',
-                },
-              },
-            ],
-            onClick: handle.legendClick, // legend 클릭 이벤트
-          },
-        ]}
-      />
-    </div>
-  );
+  if (rankData.length !== 0) {
+    return (
+      <div style={{ width: '800px', height: '500px', margin: '0 auto' }}>
+        <ResponsivePie
+          data={modifiedA}
+          margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+          innerRadius={0.5}
+          padAngle={1.8}
+          cornerRadius={8}
+          colors={['olive', 'brown', 'orange']}
+          borderWidth={0}
+          enableArcLinkLabels={false}
+          arcLinkLabelsSkipAngle={0}
+          arcLinkLabelsTextColor="#000000"
+          arcLinkLabelsThickness={2}
+          arcLinkLabelsColor={{ from: 'color' }}
+          arcLabel="id"
+          arcLabelsTextColor="#ffffff"
+          arcLabelsSkipAngle={10}
+          onClick={handle.padClick}
+          legends={[]}
+        />
+      </div>
+    );
+  } else {
+    console.log('데이터 없음');
+    return (
+      <div>
+        <LodingUi></LodingUi>
+      </div>
+    );
+  }
 }
 
 export default RestaurantChart;
