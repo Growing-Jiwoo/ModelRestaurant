@@ -7,7 +7,7 @@ import axios, {
 import { useNavigate } from 'react-router-dom';
 
 const useAxiosWithAuth = (): AxiosInstance => {
-  const [cookies, setCookie] = useCookies(['jwt']);
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
   const navigate = useNavigate();
 
   const axiosInstance = axios.create({
@@ -40,6 +40,8 @@ const useAxiosWithAuth = (): AxiosInstance => {
       if (statusCode === 401) {
         error.response.statusText = 'Unauthorized';
         error.response.status = 401;
+        localStorage.removeItem('viewCnt');
+        removeCookie('jwt');
         navigate('/');
       }
       return Promise.reject(error);
