@@ -14,6 +14,7 @@ export const Container = styled.div`
   justify-content: center;
   height: 100vh;
   background-color: white;
+  padding-bottom: 70px;
 `;
 
 export const Form = styled.form`
@@ -44,6 +45,6 @@ export const Button = styled.button`
 
 export const LogoImage = styled.img`
   width: 424px;
-  position: absolute;
-  top: 27%;
+  position: flex;
+  margin: 0px 0px 40px 0px;
 `;
