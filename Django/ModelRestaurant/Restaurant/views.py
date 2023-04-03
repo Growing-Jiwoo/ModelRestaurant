@@ -88,3 +88,18 @@ class ModelrestaurantListView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return Response(restaurants)
+
+class Top3RestaurantsByGugun(APIView):
+    def get(self, request):
+        gugun = request.query_params.get('gugun')
+        print(gugun)
+        if not gugun:
+            return Response({'error': 'gugun parameter is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            restaurants = Modelrestaurant.objects.filter(gugun=gugun).order_by('-viewcnt')[:3]
+        except Modelrestaurant.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ModelrestaurantSerializer(restaurants, many=True)
+        return Response(serializer.data)
