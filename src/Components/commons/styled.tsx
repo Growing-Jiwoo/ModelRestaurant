@@ -60,10 +60,11 @@ export const DirectionInputImage = styled.div`
 
 export const FooterStyle = styled.footer`
   footer {
-    position: absolute;
-    height: 60px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
     width: 100%;
-    padding: 0 25px;
+    height: 60px;
     line-height: 60px;
     color: #8a8c8f;
     border-top: 1px solid #dee5e7;
