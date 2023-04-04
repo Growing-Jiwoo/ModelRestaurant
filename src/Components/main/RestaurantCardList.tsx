@@ -3,7 +3,6 @@ import theme from '../../Style/theme';
 import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
 import useGeoLocation from '../../Hooks/useGeolocation';
 import Paging from '../../Hooks/usePaging';
-import { recentRestaurant } from '../../Utils/recentRestaurant';
 import type { RestaurantType } from '../../Type/interface';
 import { CardStyle } from './styled';
 
@@ -13,8 +12,6 @@ interface CardListProps {
 }
 
 function MainCardList({ currentPosts, userLocationName }: CardListProps) {
-  const handleClick = recentRestaurant();
-
   return (
     <div>
       <CardStyle>
@@ -22,11 +19,7 @@ function MainCardList({ currentPosts, userLocationName }: CardListProps) {
           <div id="title"> {userLocationName} 주변 음식점 목록</div>
           {currentPosts.map((value: RestaurantType, index: number) =>
             userLocationName == `부산 ${value.gugun.split(' ')[1]}` ? (
-              <div
-                className="card"
-                key={index}
-                onClick={() => handleClick(value)}
-              >
+              <div className="card" key={index}>
                 <div className="card_title">{value.bsnsnm}</div>
                 <div className="card_contents">
                   <img

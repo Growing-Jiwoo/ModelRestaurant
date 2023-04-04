@@ -2,10 +2,8 @@ import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usePagination, useTable } from 'react-table';
 import { TableStyle } from './styled';
-import { recentRestaurant } from '../../Utils/recentRestaurant';
 
 export function PaginationTable(props: any) {
-  const handleClick = recentRestaurant();
   const COLUMNS = [
     {
       Header: '순번',
@@ -88,7 +86,6 @@ export function PaginationTable(props: any) {
                         {...cell.getCellProps()}
                         onClick={() => {
                           navigate(`/list/${row.original.id}`);
-                          handleClick(row.original);
                         }}
                       >
                         {cell.render('Cell')}
