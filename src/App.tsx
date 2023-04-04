@@ -7,8 +7,8 @@ import RestaurantList from './Components/list/RestaurantList';
 import NavBar from './Components/commons/Navbar';
 import Footer from './Components/commons/Footer';
 import theme from './Style/theme';
-import DetailRestaurantInfo from './Components/list/DetailRestaurantInfo';
-import RestaurantChart from './Components/chart/RestaurantChart';
+import DetailRestaurantInfo from './Components/detailInfomation/DetailRestaurantInfo';
+import ChartLayout from './Components/chart/ChartLayout';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
               <Route path="/map" element={<Map />} />
               <Route path="/list" element={<RestaurantList />} />
               <Route path="/list/:id" element={<DetailRestaurantInfo />} />
-              <Route path="/chart" element={<RestaurantChart />} />
+              <Route path="/chart" element={<ChartLayout />} />
             </Route>
           </Routes>
         </div>
