@@ -9,4 +9,12 @@ export interface RestaurantType {
   lon: string | number;
   menu: string;
   tel: string;
+  viewcnt: number;
+}
+
+export interface RankDataType {
+  id: number;
+  bsnsnm: string;
+  viewcnt: number;
+  addrroad: string;
 }
