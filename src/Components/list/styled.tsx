@@ -31,6 +31,9 @@ export const TableStyle = styled.div`
   table tr {
     cursor: pointer;
   }
+  table thead {
+    font-size: 15px;
+  }
 `;
 
 export const ImgStyle = styled.div`
