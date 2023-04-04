@@ -9,7 +9,9 @@ interface RestaurantMapProps {
 }
 
 const { naver } = window;
-function RestaurantMap(props: RestaurantMapProps): JSX.Element {
+export function SelectRestaurantlocation(
+  props: RestaurantMapProps
+): JSX.Element {
   const { lat, lon } = props.location;
   useEffect(() => {
     const map = new naver.maps.Map('map', {
