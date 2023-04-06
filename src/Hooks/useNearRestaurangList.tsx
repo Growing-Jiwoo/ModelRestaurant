@@ -7,7 +7,6 @@ export type RestaurantListType = RestaurantType[];
 function useNearRestaurangList(
   id: string | null | undefined
 ): RestaurantListType {
-  console.log(typeof id);
   const [data, setData] = useState<RestaurantListType>([]);
 
   const axiosInstance = useAxiosWithAuth();
