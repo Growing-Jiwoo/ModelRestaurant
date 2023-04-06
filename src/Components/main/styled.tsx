@@ -91,3 +91,27 @@ export const MainBannerImage = styled.img`
   max-width: 100%;
   height: auto;
 `;
+
+export const PopupContainer = styled.div`
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  #closebtn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+`;
+
+export const PopupContent = styled.div`
+  background-color: #fff;
+  padding: 20px;
+`;
