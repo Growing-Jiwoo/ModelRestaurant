@@ -10,9 +10,9 @@
 
 React.js, TypeScript, HTML, CSS, MySQL, Django
 
-### [폴더 구조] (주기적으로 내용 최신화 중)
+### [폴더 구조]
 
-![image](https://user-images.githubusercontent.com/115076308/224614000-235f24d8-9cb8-479a-864e-aa72dbccc153.png)
+![image](https://user-images.githubusercontent.com/115076308/230529811-fd3bd842-d0b6-4a44-a161-50a7cc04e7ce.png)
 
 - components  
 각 페이지에 출력되는 모든 컴포넌트들이 위치하는 폴더
@@ -20,13 +20,10 @@ React.js, TypeScript, HTML, CSS, MySQL, Django
 - commons  
 공통적으로 사용되는 Component들이 위치하는 폴더
 
-- list, map, main  
-각 url에서 사용되는 Component들이 위치하는 폴더
-
 - Utils  
 전역에서 공통으로 사용하는 util 함수들이 위치하는 폴더
 
-- hooks  
+- Hooks  
 전역에서 공통으로 Custom hooks들이 위치하는 폴더
 
 - Style  
@@ -36,25 +33,29 @@ React.js, TypeScript, HTML, CSS, MySQL, Django
 전역에서 공통으로 사용되는 타입들이 위치하는 폴더
 
 - styled.tsx  
-Components의 각 폴더에 들어있는 styled.tsx 파일은 각 url의 컴포넌트들에 사용되는 style을 모아두는 파일
+Components의 각 폴더에 들어있는 styled.tsx 파일은 각 url의 컴포넌트들에 사용되는 style을 모아두는 파일   
+   
+- ...LayOut.tsx   
+LayOut으로 끝나는 파일은 각 페이지의 자식 컴포넌트 단위를 묶는 부모 컴포넌트(레이아웃) 파일
 
 ### [사용 라이브러리]
 
 `@types/navermaps@3.6.1`  
 `@types/react-dom@18.0.9`  
 `@types/react-js-pagination@3.0.4`  
-`@types/react-table@7.7.14`  
+`@types/react-table@7.7.14` 
+`@types/react-modal@3.13.1`
 `@types/react@18.0.26`  
 `@types/styled-components@5.1.26`  
-`axios@1.2.2`  
-`bootstrap@5.2.3`  
 `react-async@10.0.1`  
 `react-bootstrap@2.7.0`  
 `react-dom@18.2.0`  
 `react-hook-geolocation@1.1.0`  
-`react-js-pagination@3.0.3`  
 `react-router-dom@6.4.5`  
 `react-select@5.7.0`  
 `react-table@7.8.0`  
+`react-cookie@4.1.1`   
 `styled-components@5.3.6`  
 `typescript@4.9.4`  
+`axios@1.2.2`  
+`bootstrap@5.2.3`  
