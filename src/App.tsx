@@ -1,16 +1,16 @@
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import MainComponent from './Components/main/MainComponent';
+import MainLayout from './Components/main/MainLayout';
 import LoginUi from './Components/login/LoginUi';
 import Map from './Components/map/Map';
-import RestaurantList from './Components/list/RestaurantList';
+import RestaurantList from './Components/list/listLayout';
 import NavBar from './Components/commons/Navbar';
 import Footer from './Components/commons/Footer';
 import theme from './Style/theme';
-import DetailRestaurantInfo from './Components/detailInfomation/DetailRestaurantInfo';
+import DetailInfoLayout from './Components/detailInfomation/DetailInfoLayout';
 import ChartLayout from './Components/chart/ChartLayout';
 
-function App() {
+function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -19,11 +19,11 @@ function App() {
         <div style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<LoginUi />} />
-            <Route element={<MainLayout />}>
-              <Route path="/home" element={<MainComponent />} />
+            <Route element={<CommonLayout />}>
+              <Route path="/home" element={<MainLayout />} />
               <Route path="/map" element={<Map />} />
               <Route path="/list" element={<RestaurantList />} />
-              <Route path="/list/:id" element={<DetailRestaurantInfo />} />
+              <Route path="/list/:id" element={<DetailInfoLayout />} />
               <Route path="/chart" element={<ChartLayout />} />
             </Route>
           </Routes>
@@ -33,7 +33,7 @@ function App() {
   );
 }
 
-const MainLayout = () => {
+const CommonLayout = () => {
   return (
     <>
       <NavBar />
