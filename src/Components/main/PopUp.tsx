@@ -15,7 +15,7 @@ const customStyles = {
   content: {
     border: 'none',
     borderRadius: '10px',
-    maxWidth: '500px',
+    maxWidth: '29vw',
     maxHeight: '80vh',
     overflow: 'auto',
     padding: 0,
@@ -25,7 +25,7 @@ const customStyles = {
   },
 };
 
-const Popup = ({ isOpen, closeModal }: any) => {
+function Popup({ isOpen, closeModal }: any) {
   const location = useGeoLocation();
   const gugun = location.coordinates?.address;
   const nearRestaurantRank = useNearRestaurantRank(gugun);
@@ -49,14 +49,14 @@ const Popup = ({ isOpen, closeModal }: any) => {
           X
         </button>
         <PopupContent>
-          <h2>Popup Window</h2>
-          <p>This is a simple popup window.</p>
+          <h2>{gugun} TOP3</h2>
+          <p>사용자 근처 음식점 조회수 TOP3에 대한 리스트입니다.</p>
           <PopUpRankTable data={nearRestaurantRank} />
           <button onClick={handleButtonClick}>오늘 하루 보지 않기</button>
         </PopupContent>
       </PopupContainer>
     </Modal>
   );
-};
+}
 
 export default Popup;
