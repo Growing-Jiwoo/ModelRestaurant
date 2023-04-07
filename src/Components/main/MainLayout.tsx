@@ -22,7 +22,13 @@ function HomeUi(): JSX.Element {
   const closeModal = () => setIsOpen(false);
 
   useEffect(() => {
-    openModal();
+    const delay = setTimeout(() => {
+      openModal();
+    }, 4200);
+
+    return () => {
+      clearTimeout(delay);
+    };
   }, []);
 
   return (
