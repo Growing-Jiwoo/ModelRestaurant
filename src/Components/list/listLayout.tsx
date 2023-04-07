@@ -12,7 +12,6 @@ function RestaurantList(): JSX.Element {
     useState<SelectBoxOption | null>(null);
   const [selectedLocationOption, setSelectedLocationOption] =
     useState<SelectBoxOption | null>(null);
-
   const nearRestaurangList = useNearRestaurangList(null) ?? [];
 
   useEffect(() => {
