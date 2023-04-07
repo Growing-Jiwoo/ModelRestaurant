@@ -26,7 +26,7 @@ function SidebarList(props: SidebarListProps): JSX.Element {
             <button onClick={() => handleClick(item)}>X</button>
             <br />
           </span>
-          <span>{item.addrroad}</span>
+          <span id="content">{item.addrroad}</span>
         </div>
       ))}
     </div>
