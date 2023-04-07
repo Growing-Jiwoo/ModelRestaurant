@@ -3,7 +3,7 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import MainLayout from './Components/main/MainLayout';
 import LoginUi from './Components/login/LoginUi';
 import Map from './Components/map/Map';
-import RestaurantList from './Components/list/listLayout';
+import RestaurantList from './Components/list/ListLayout';
 import NavBar from './Components/commons/Navbar';
 import Footer from './Components/commons/Footer';
 import theme from './Style/theme';
