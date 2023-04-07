@@ -108,10 +108,31 @@ export const PopupContainer = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+    z-index: 2;
   }
 `;
 
 export const PopupContent = styled.div`
   background-color: #fff;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
+  position: relative;
+
+  h2,
+  p {
+    text-align: center;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  button {
+    width: 120px;
+    height: 25px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -30px;
+    font-size: 12px;
+  }
 `;

@@ -21,14 +21,31 @@ export const LodingUiStyle = styled.div`
 export const SidebarStyle = styled.div`
   .sideBar {
     position: fixed;
-    right: 50%;
+    right: 10%;
     top: 50%;
-    margin-right: -720px;
+    transform: translate(50%, -50%);
     text-align: center;
-    width: 120px;
+    width: 150px;
     background-color: #f2f2f2;
     word-wrap: break-word;
     z-index: 2;
+  }
+
+  #content {
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+
+  @media only screen and (max-width: 1645px) {
+    .sideBar {
+      display: none;
+    }
   }
 `;
 
@@ -74,16 +91,14 @@ export const FooterStyle = styled.footer`
 `;
 
 export const LogoutButton = styled.button`
+  position: absolute;
   background-color: transparent;
   border: none;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
   letter-spacing: 0.5px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-
+  right: 2%;
   &:hover {
     color: #000;
   }
