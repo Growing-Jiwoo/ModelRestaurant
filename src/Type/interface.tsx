@@ -18,3 +18,8 @@ export interface RankDataType {
   viewcnt: number;
   addrroad: string;
 }
+
+export interface SelectBoxOption {
+  value: string;
+  label: string;
+}
