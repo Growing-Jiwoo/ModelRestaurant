@@ -10,6 +10,12 @@
 
 React.js, TypeScript, HTML, CSS, MySQL, Django
 
+### [기존 프로젝트에서 추가로 구현된 기능]
+- 최근 조회한 음식점 리스트 사이드바 구현 (local storage)
+- 음식점 조회시 조회수 카운팅 구현
+- 모범음식점 조회수 top3 차트 및 테이블 구현 (react-table, nivo)
+- 로그인 시 사용자 근처 모범음식점 조회수 top3 출력 모달창 구현 (react-modal)
+
 ### [폴더 구조]
 
 ![image](https://user-images.githubusercontent.com/115076308/230529811-fd3bd842-d0b6-4a44-a161-50a7cc04e7ce.png)
