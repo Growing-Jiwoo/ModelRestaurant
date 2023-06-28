@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
-import LodingUi from '../commons/LodingUi';
-import RestaurantListTable from './RestaurantListTable';
-import SelectBox from './ListSelectBox';
-import type { SelectBoxOption } from '../../Type/interface';
+import useNearRestaurangList from '../hook/useNearRestaurangList';
+import LodingUi from '../components/commons/Loding';
+import RestaurantListTable from '../components/list/RestaurantListTable';
+import SelectBox from '../components/list/ListSelectBox';
+import type { SelectBoxOption } from '../@types/interface';
 
 function RestaurantList(): JSX.Element {
   const [menuOptions, setMenuOptions] = useState<SelectBoxOption[]>([]);
@@ -24,11 +24,12 @@ function RestaurantList(): JSX.Element {
       new Set(nearRestaurangList.map((value: { gugun: string }) => value.gugun))
     );
 
-    const menuOptions: any = menus.map((menu) => ({
+    const menuOptions: SelectBoxOption[] = menus.map((menu) => ({
       value: menu,
       label: menu,
     }));
-    const locationOptions: any = locations.map((location) => ({
+
+    const locationOptions: SelectBoxOption[] = locations.map((location) => ({
       value: location,
       label: location,
     }));

@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
-import type { RestaurantType } from '../../Type/interface';
+import useNearRestaurangList from '../hook/useNearRestaurangList';
+import type { RestaurantType } from '../@types/interface';
+import { MapContainer } from '../components/map/styled';
+import LodingUi from '../components/commons/Loding';
 
 function Map() {
   const getNearRestaurangList = useNearRestaurangList(null);
   const [myLocation, setMyLocation] = useState<
     { latitude: number; longitude: number } | string
   >('');
-  const { naver } = window;
+  const naver = window.naver;
   const markers: naver.maps.Marker[] = [];
   const infowindows: naver.maps.InfoWindow[] = [];
   let currentMarker: naver.maps.Marker;
@@ -22,12 +24,8 @@ function Map() {
         });
       });
       console.log(`현재 위치 GET 완료1`);
-      const map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(35.1795543, 129.0756416),
-        zoom: 17,
-      });
     } else {
-      window.alert('현재 위치를 알수 없습니다.');
+      window.alert('현재 위치를 알 수 없습니다.');
     }
   }, []);
 
@@ -45,7 +43,7 @@ function Map() {
         },
       });
 
-      getNearRestaurangList.map((value: RestaurantType, index: number) => {
+      getNearRestaurangList.map((value: RestaurantType) => {
         const contentTags = `'<div class="naver-container"><p class="ptag">${value.bsnsnm} 여깁니다</p><span class="spantag">맞아요</span></div>'`;
         currentMarker = new naver.maps.Marker({
           position: new naver.maps.LatLng(Number(value.lat), Number(value.lon)),
@@ -68,26 +66,22 @@ function Map() {
       });
 
       const updateMarkers = (
-        isMap: naver.maps.Map,
-        isMarkers: naver.maps.Marker[]
+        map: naver.maps.Map,
+        markers: naver.maps.Marker[]
       ) => {
-        const mapBounds: any = isMap.getBounds();
-        let marker;
-        let position;
-        for (let i = 0; i < isMarkers.length; i += 1) {
-          marker = isMarkers[i];
-          position = marker.getPosition();
+        const mapBounds: any = map.getBounds();
 
-          if (mapBounds.hasLatLng(position)) {
-            showMarker(isMap, marker);
-          } else {
-            hideMarker(marker);
-          }
-        }
+        markers.forEach((marker) => {
+          const position = marker.getPosition();
+
+          mapBounds.hasLatLng(position)
+            ? showMarker(marker)
+            : hideMarker(marker);
+        });
       };
 
-      const showMarker = (isMap: naver.maps.Map, marker: naver.maps.Marker) => {
-        marker.setMap(isMap);
+      const showMarker = (marker: naver.maps.Marker) => {
+        marker.setMap(map);
       };
 
       const hideMarker = (marker: naver.maps.Marker) => {
@@ -118,7 +112,15 @@ function Map() {
     }
   }, [getNearRestaurangList]);
 
-  return <div id="map" style={{ width: '100%', height: '873px' }} />;
+  if (getNearRestaurangList.length !== 0) {
+    return <MapContainer id="map" />;
+  } else {
+    return (
+      <div>
+        <LodingUi></LodingUi>
+      </div>
+    );
+  }
 }
 
 export default Map;

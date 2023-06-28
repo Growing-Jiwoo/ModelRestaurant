@@ -10,6 +10,6 @@ export const RankMentDiv = styled.footer`
 
 export const ChartDiv = styled.div`
   width: 800px;
-  height: 500px;
+  height: 613px;
   margin: 0 auto;
 `;

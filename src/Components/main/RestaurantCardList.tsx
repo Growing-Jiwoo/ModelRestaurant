@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import theme from '../../Style/theme';
-import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
-import useGeoLocation from '../../Hooks/useGeolocation';
-import Paging from '../../Hooks/usePaging';
-import type { RestaurantType } from '../../Type/interface';
+import theme from '../../style/theme';
+import useNearRestaurangList from '../../hook/useNearRestaurangList';
+import useGeoLocation from '../../hook/useGeolocation';
+import Paging from '../../hook/usePaging';
+import type { RestaurantType } from '../../@types/interface';
 import { CardStyle } from './styled';
 
 interface CardListProps {
@@ -25,7 +25,7 @@ function MainCardList({ currentPosts, userLocationName }: CardListProps) {
                   <img
                     className="food_img"
                     alt="food_img"
-                    style={{ width: '200px' }}
+                    style={{ width: '65%' }}
                     src={process.env.PUBLIC_URL + `/img/img_${value.id}.jpg`}
                   />
                 </div>

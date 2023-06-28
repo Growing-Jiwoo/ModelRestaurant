@@ -59,12 +59,12 @@ const PagingStyle = styled.div`
   }
 `;
 
-type PagingProps = {
+interface PagingProps {
   page: number;
   count: number;
   setPage: (pageNumber: number) => void;
   onClick?: () => void;
-};
+}
 
 function Paging({ page, count, setPage }: PagingProps): ReactElement {
   return (

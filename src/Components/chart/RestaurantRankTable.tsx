@@ -2,7 +2,7 @@ import { useTable, Column } from 'react-table';
 import { TableStyle } from '../list/styled';
 import { useNavigate } from 'react-router';
 import { useMemo } from 'react';
-import type { RankDataType } from '../../Type/interface';
+import type { RankDataType } from '../../@types/interface';
 
 export function RankTable(data: { data: RankDataType[] }) {
   const navigate = useNavigate();

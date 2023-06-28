@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { PopupContainer, PopupContent } from './styled';
-import useGeoLocation from '../../Hooks/useGeolocation';
-import useNearRestaurantRank from '../../Hooks/useNearRestaurantRank';
+import useGeoLocation from '../../hook/useGeolocation';
+import useNearRestaurantRank from '../../hook/useNearRestaurantRank';
 import { PopUpRankTable } from './PopUpRankTable';
 
 Modal.setAppElement('#root');

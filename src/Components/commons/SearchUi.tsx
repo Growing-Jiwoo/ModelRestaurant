@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useGeoLocation from '../../Hooks/useGeolocation';
+import useGeoLocation from '../../hook/useGeolocation';
 import {
   DirectionInput,
   DirectionInputContainer,

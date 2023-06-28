@@ -92,9 +92,9 @@ const useGeolocation = (): Location => {
       onError({
         code: 0,
         message: 'Geolocation not supported',
-        PERMISSION_DENIED: 0,
-        POSITION_UNAVAILABLE: 0,
-        TIMEOUT: 0,
+        PERMISSION_DENIED: 1,
+        POSITION_UNAVAILABLE: 2,
+        TIMEOUT: 3,
       });
     } else {
       navigator.geolocation.getCurrentPosition(onSuccess, onError);

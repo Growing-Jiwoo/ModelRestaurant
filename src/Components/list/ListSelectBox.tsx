@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import type { SelectBoxOption } from '../../Type/interface';
+import type { SelectBoxOption } from '../../@types/interface';
 
 export default function SelectBox(props: {
   options: SelectBoxOption[];

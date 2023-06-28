@@ -1,26 +1,32 @@
 import { useState } from 'react';
-import { Container, Form, Input, Button, LogoImage } from './styled';
+import {
+  Container,
+  Form,
+  Input,
+  Button,
+  LogoImage,
+} from '../components/auth/styled';
 import { useCookies } from 'react-cookie';
-import useAxiosWithAuth from '../../Hooks/useAxiosWithAuth';
+import useAxiosWithAuth from '../hook/useAxiosWithAuth';
 import { useNavigate } from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
   const axiosInstance = useAxiosWithAuth();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['jwt']);
+  const [, setCookie] = useCookies(['jwt']);
   const [values, setValues] = useState({
     username: '',
     password: '',
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post('users/login/', values);

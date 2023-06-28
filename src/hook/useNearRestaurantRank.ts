@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useAxiosWithAuth from './useAxiosWithAuth';
-import type { RestaurantType } from '../Type/interface';
+import type { RestaurantType } from '../@types/interface';
 
 export type RestaurantListType = RestaurantType[];
 

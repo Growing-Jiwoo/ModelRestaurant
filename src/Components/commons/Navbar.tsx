@@ -3,13 +3,13 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import SearchUi from '../commons/SearchUi';
 import { useCookies } from 'react-cookie';
 import { LogoutButton } from './styled';
-import { submitViewCntData } from '../../Utils/submitViewCnt';
+import { submitViewCntData } from '../../util/submitViewCnt';
 
 function NavBar() {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+  const [, , removeCookie] = useCookies(['jwt']);
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     try {
       await submitViewCntData();
       localStorage.removeItem('viewCnt');
@@ -18,7 +18,7 @@ function NavBar() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>

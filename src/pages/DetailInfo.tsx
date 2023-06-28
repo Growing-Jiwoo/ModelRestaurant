@@ -1,16 +1,16 @@
 import { useParams } from 'react-router-dom';
-import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
+import useNearRestaurangList from '../hook/useNearRestaurangList';
 import { useEffect } from 'react';
-import LodingUi from '../commons/LodingUi';
-import { recentRestaurant } from '../../Utils/recentRestaurant';
-import { SelectRestaurantlocation } from './SelectRestaurantlocation';
-import { DetailRestaurantInfo } from './DetailRestaurantInfo';
+import LodingUi from '../components/commons/Loding';
+import { recentRestaurant } from '../util/recentRestaurant';
+import { SelectRestaurantlocation } from '../components/detailInfomation/SelectRestaurantlocation';
+import { DetailRestaurantInfo } from '../components/detailInfomation/DetailRestaurantInfo';
 
 interface Params extends Record<string, string> {
   id: string;
 }
 
-function DetailInfoLayout(): JSX.Element {
+function DetailInfo(): JSX.Element {
   const recentRestaurantView = recentRestaurant();
   const params = useParams<Params>();
   const nearRestaurant: any = useNearRestaurangList(params.id);
@@ -40,7 +40,6 @@ function DetailInfoLayout(): JSX.Element {
       </div>
     );
   } else {
-    console.log('데이터 없음');
     return (
       <div>
         <LodingUi></LodingUi>
@@ -48,4 +47,4 @@ function DetailInfoLayout(): JSX.Element {
     );
   }
 }
-export default DetailInfoLayout;
+export default DetailInfo;

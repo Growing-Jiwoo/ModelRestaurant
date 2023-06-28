@@ -1,9 +1,14 @@
 import { useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePagination, useTable } from 'react-table';
 import { TableStyle } from './styled';
+import { RestaurantType } from '../../@types/interface';
 
-export function PaginationTable(props: any) {
+interface PaginationTableProps {
+  NearRestaurangList: RestaurantType[];
+}
+
+export function PaginationTable(props: PaginationTableProps) {
   const COLUMNS = [
     {
       Header: '순번',

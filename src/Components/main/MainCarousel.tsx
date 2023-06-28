@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import { BannerLogoStyle } from './styled';
-import useNearRestaurangList from '../../Hooks/useNearRestaurangList';
+import useNearRestaurangList from '../../hook/useNearRestaurangList';
 
 function ControlledCarousel(): JSX.Element {
   const [index, setIndex] = useState<number>(0);

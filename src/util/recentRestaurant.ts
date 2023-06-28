@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import type { RestaurantType } from '../Type/interface';
+import type { RestaurantType } from '../@types/interface';
 
 export function recentRestaurant() {
   const navigate = useNavigate();

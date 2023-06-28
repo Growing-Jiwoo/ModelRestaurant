@@ -1,6 +1,6 @@
 import { ListGroup } from 'react-bootstrap';
 import { ImgStyle, RestaurantInfoStyle } from './styled';
-import type { RestaurantType } from '../../Type/interface';
+import type { RestaurantType } from '../../@types/interface';
 
 interface DetailRestaurantProps {
   imgNum: string | undefined;

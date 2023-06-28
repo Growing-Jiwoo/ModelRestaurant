@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { RestaurantType } from '../../Type/interface';
+import type { RestaurantType } from '../../@types/interface';
 import { SidebarStyle } from './styled';
 
 type SidebarListProps = {

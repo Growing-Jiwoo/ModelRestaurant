@@ -5,7 +5,7 @@ export const LodingUiStyle = styled.div`
   }
   #lodingBody {
     width: 100vw;
-    height: 100vh;
+    height: 93.5vh;
     position: absolute;
 
     background-color: lightgray;
@@ -77,7 +77,7 @@ export const DirectionInputImage = styled.div`
 
 export const FooterStyle = styled.footer`
   footer {
-    position: fixed;
+    position: relative;
     left: 0;
     bottom: 0;
     width: 100%;

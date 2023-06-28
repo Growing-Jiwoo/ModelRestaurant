@@ -33,7 +33,6 @@ export const CardStyle = styled.div`
   .card {
     width: 27%;
     height: 250px;
-    border: 1px solid red;
     margin: 20px 0px 20px 0px;
     cursor: pointer;
   }
@@ -46,14 +45,15 @@ export const CardStyle = styled.div`
 
   .card_contents {
     width: 100%;
-    background-color: red;
-    flex: 7;
   }
 
   .card_footer {
     width: 100%;
     background-color: orange;
     flex: 1;
+    margin-top: -2px;
+    border-radius: 0px 0px 5px 5px;
+}
   }
 `;
 

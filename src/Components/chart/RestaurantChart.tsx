@@ -1,6 +1,6 @@
 import { ResponsivePie } from '@nivo/pie';
 import { ChartDiv, RankMentDiv } from './styled';
-import type { RankDataType } from '../../Type/interface';
+import type { RankDataType } from '../../@types/interface';
 
 function RestaurantChart(props: { props: RankDataType[] }) {
   const modifiedA = props.props.map(({ bsnsnm, viewcnt }) => ({
