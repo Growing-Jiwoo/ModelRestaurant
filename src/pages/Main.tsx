@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MainBannerImg } from '../components/main/MainBannerImg';
 import { NearRestaurantRank } from '../components/main/NearRestaurantRank';
 
-function MainComponent(): JSX.Element {
+function Main(): JSX.Element {
   const [showBanner, setShowBanner] = useState<boolean>(
     !localStorage.getItem('bannerDisplayed')
   );
@@ -20,4 +20,4 @@ function MainComponent(): JSX.Element {
   return showBanner ? <MainBannerImg /> : <NearRestaurantRank />;
 }
 
-export default MainComponent;
+export default Main;

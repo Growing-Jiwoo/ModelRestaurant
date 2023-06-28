@@ -3,7 +3,7 @@ import { RankTable } from '../components/chart/RestaurantRankTable';
 import LodingUi from '../components/commons/Loding';
 import { useRankData } from '../hook/useRankData';
 
-function ChartLayout() {
+function RestaurantRankChart() {
   const rankData = useRankData();
   console.log(rankData);
   if (rankData.length !== 0) {
@@ -23,4 +23,4 @@ function ChartLayout() {
   }
 }
 
-export default ChartLayout;
+export default RestaurantRankChart;
