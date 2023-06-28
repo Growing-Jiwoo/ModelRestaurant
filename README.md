@@ -16,11 +16,13 @@
 
 ### React
 
+Client 폴더 내 에서 실행
+
 `npm start`
 
 ### Django
 
-Django 폴더 내 ModelRestaurant으로 진입 후
+Server 폴더 내 ModelRestaurant에서 실행
 
 `python manage.py runserver`
 
@@ -30,7 +32,10 @@ Django 폴더 내 ModelRestaurant으로 진입 후
 
 ### [사용 기술]
 
-React.js, TypeScript, HTML, CSS, MySQL, Django
+#### * Client
+React.js, TypeScript, JSX, CSS
+#### * Server
+MySQL, Django
 
 ### [기존 프로젝트에서 추가로 구현된 기능]
 
