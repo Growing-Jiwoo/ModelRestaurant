@@ -8,22 +8,23 @@
 
 ## Installation
 
-## React
+### React
 
 `npm install`
 
 ## Running the App
 
-## React
+### React
 
 `npm start`
 
-## Django
+### Django
 
 Django 폴더 내 ModelRestaurant으로 진입 후
 
 `python manage.py runserver`
 
+    
 ### [인원]
 
 - 1명
