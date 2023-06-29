@@ -2,7 +2,7 @@ import { AppContainer, ContentContainer } from './styled';
 import { ThemeProvider } from 'styled-components';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Main from './pages/Main';
-import LoginUi from './pages/SignIn';
+import SignIn from './pages/SignIn';
 import Map from './pages/Map';
 import RestaurantList from './pages/RestaurantList';
 import NavBar from './components/commons/Navbar';
@@ -10,6 +10,7 @@ import Footer from './components/commons/Footer';
 import theme from './style/theme';
 import DetailInfo from './pages/DetailInfo';
 import RestaurantRankChart from './pages/RestaurantRankChart';
+import SignUp from './pages/SignUp';
 
 function App(): JSX.Element {
   return (
@@ -17,8 +18,8 @@ function App(): JSX.Element {
       <AppContainer>
         <ContentContainer>
           <Routes>
-            <Route path="/" element={<LoginUi />} />
-
+            <Route path="/" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route element={<CommonLayout />}>
               <Route path="/home" element={<Main />} />
               <Route path="/map" element={<Map />} />

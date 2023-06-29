@@ -1,34 +1,19 @@
-import { useState } from 'react';
-import {
-  Container,
-  Form,
-  Input,
-  Button,
-  LogoImage,
-  ButtonContainer,
-} from '../components/auth/styled';
-import { useCookies } from 'react-cookie';
+import React from 'react';
+import { Container, LogoImage } from '../components/auth/styled';
+import AuthForm from '../components/auth/AutoForm';
 import useAxiosWithAuth from '../hook/useAxiosWithAuth';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-function LoginScreen(): JSX.Element {
+function SignIn(): JSX.Element {
   const axiosInstance = useAxiosWithAuth();
   const navigate = useNavigate();
   const [, setCookie] = useCookies(['jwt']);
-  const [values, setValues] = useState({
-    username: '',
-    password: '',
-  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
     try {
       const response = await axiosInstance.post('users/login/', values);
       setCookie('jwt', response.data.token);
@@ -41,34 +26,14 @@ function LoginScreen(): JSX.Element {
   return (
     <Container>
       <LogoImage src={require('../assets/img/mainLogo.PNG')} />
-      <Form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={values.username}
-          onChange={handleChange}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-        />
-        <ButtonContainer>
-          <Button>SignIn</Button>
-          <Button
-            onClick={() => {
-              navigate('/SignUp');
-            }}
-          >
-            SignUp
-          </Button>
-        </ButtonContainer>
-      </Form>
+      <AuthForm
+        onSubmit={handleSubmit}
+        submitButtonText="SignIn"
+        navigateButtonText="SignUp"
+        navigateTo="/SignUp"
+      />
     </Container>
   );
 }
 
-export default LoginScreen;
+export default SignIn;
