@@ -1,5 +1,5 @@
 from rest_framework import routers
-from .views import UserViewSet, RestaurantList, RestaurantDetail, ModelrestaurantUpdateView, ModelrestaurantListView, Top3RestaurantsByGugun
+from .views import UserViewSet, RestaurantList, RestaurantDetail, ModelrestaurantUpdateView, ModelrestaurantListView, Top3RestaurantsByGugun, UserSignupAPIView
 from django.urls import include, path
 
 router = routers.DefaultRouter()
@@ -14,4 +14,5 @@ urlpatterns = [
     path('addViewCnt', ModelrestaurantUpdateView.as_view(), name='modelrestaurant-update'),
     path('rankData', ModelrestaurantListView.as_view()),
     path('top3', Top3RestaurantsByGugun.as_view(), name='top3'),
+    path('signup', UserSignupAPIView.as_view(), name='user-signup'),
 ]
