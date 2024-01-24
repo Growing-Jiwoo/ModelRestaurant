@@ -6,25 +6,19 @@
 
 ###### 폴더 내 db.xlsx를 db에 반드시 등록을 해야합니다.
 
-## Installation
+## 설치 및 실행
 
-### React
+### 설치
 
-`npm install`
+#### React - `npm install`
 
-## Running the App
+#### Django - `pip install -r requirements.txt`
 
-### React
+### 실행
 
-Client 폴더 내 에서 실행
+#### React - `npm start`
 
-`npm start`
-
-### Django
-
-Server 폴더 내 ModelRestaurant에서 실행
-
-`python manage.py runserver`
+#### Django - `python manage.py runserver`
 
 ### [인원]
 
@@ -33,9 +27,10 @@ Server 폴더 내 ModelRestaurant에서 실행
 ### [사용 기술]
 
 #### * Client
-React.js, TypeScript, JSX, CSS
+- React.js, TypeScript
+
 #### * Server
-MySQL, Django
+- MySQL, Django
 
 ### [기존 프로젝트에서 추가로 구현된 기능]
 
@@ -60,22 +55,4 @@ ModelRestaurant
 
 ### [사용 라이브러리]
 
-`@types/navermaps@3.6.1`  
-`@types/react-dom@18.0.9`  
-`@types/react-js-pagination@3.0.4`  
-`@types/react-table@7.7.14`
-`@types/react-modal@3.13.1`
-`@types/react@18.0.26`  
-`@types/styled-components@5.1.26`  
-`react-async@10.0.1`  
-`react-bootstrap@2.7.0`  
-`react-dom@18.2.0`  
-`react-hook-geolocation@1.1.0`  
-`react-router-dom@6.4.5`  
-`react-select@5.7.0`  
-`react-table@7.8.0`  
-`react-cookie@4.1.1`  
-`styled-components@5.3.6`  
-`typescript@4.9.4`  
-`axios@1.2.2`  
-`bootstrap@5.2.3`
+`React` `typescript` `navermaps` `react-dom` `react-js-pagination` `react-table` `react-modal``react-hook-geolocation`  `react-router-dom` `react-select` `react-table` `styled-components` 
