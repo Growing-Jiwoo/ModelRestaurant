@@ -55,4 +55,4 @@ ModelRestaurant
 
 ### [사용 라이브러리]
 
-`React` `typescript` `navermaps` `react-dom` `react-js-pagination` `react-table` `react-modal``react-hook-geolocation`  `react-router-dom` `react-select` `react-table` `styled-components` 
+`React` `typescript` `react-modal` `react-hook-geolocation` `navermaps` `styled-components` 
