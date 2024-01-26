@@ -56,3 +56,6 @@ ModelRestaurant
 ### [사용 라이브러리]
 
 `React` `typescript` `react-modal` `react-hook-geolocation` `navermaps` `styled-components` 
+
+### [회고록]
+- https://growing-jiwoo.tistory.com/98
